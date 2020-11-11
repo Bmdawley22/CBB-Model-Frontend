@@ -1,18 +1,41 @@
-#table-wrapper {
+#allstats-div {
     display: flex;
-    justify-content: center;
-
+    flex-direction: column;
+    align-items: center;
+    width: 90vw;
+    margin-top: 10px;
+}
+#table-wrapper {
+    overflow-x: auto;
+    width: 80vw;
 }
 table {
     overflow-x: auto;
-    width: 80vh;
-    border: 3px solid black;
-
+    
 }
-th {
-    margin: 0px 3px;
-    width: 8vw;
-    border: 1px solid black;
-    font-size: 100%;
-    padding: 0px 3px;
+#table-header {
+    display: block;
+    overflow-x: auto;
+}
+#table-header th {
+    border: 1px black solid;
+}
+.school-header {
+    min-width: 5vw;
+}
+.table-headers {
+    min-width: 3vw;
+}
+tbody {
+    display: block;
+    overflow:auto;
+    height:200px;
+    width:100%;
+    font-size: 10px;
+}
+.school-cell {
+    min-width: 5vw;
+}
+.cells {
+    min-width: 3vw;
 }

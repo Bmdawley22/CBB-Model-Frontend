@@ -39,7 +39,6 @@ class AllStatsPage extends Component {
         });
         
         promise.then((stats) => {
-            console.log(stats)
 
             const headerArr = [];
             for (const[key, value] of Object.entries(stats[0])) {
@@ -47,19 +46,21 @@ class AllStatsPage extends Component {
             }
             this.setState({ header: headerArr })
 
-            const tempTeamStats = [];
-            for (let i = 0; i < 2; i++) {
+            let tempTeamStats = [];
+            let statArr = []
+            for (let i = 0; i < stats.length; i++) {
                 for (const[key, value] of Object.entries(stats[i])) {
                     tempTeamStats.push(value)
                 }
-                console.log(tempTeamStats)
+                statArr[i] = tempTeamStats;
+                tempTeamStats = [];
             }
-        
+            this.setState({ stats: statArr })
         })
     }
     render () {
         return (    
-            <div>
+            <div id='allstats-div'>
                 <input 
                     type='file' 
                     onChange={(e) => {
@@ -68,17 +69,42 @@ class AllStatsPage extends Component {
                     }} 
                 />
                 
-                    {this.state.stats && 
-                        <div id='table-wrapper'>
-                            <table>
-                                <tr id='header'>
+                {this.state.stats && 
+                    <div id='table-wrapper'>
+                        <table>
+                            <thead>
+                                <tr id='table-header'>
                                     {this.state.header.map((header, id) => {
-                                        return <th key={id}>{header}</th>
+                                        return <th 
+                                                    key={id} 
+                                                    className={id === 0 ? 
+                                                        'school-header' 
+                                                        :
+                                                        'table-headers'
+                                                    }
+                                                >{header}</th>
                                     })}
                                 </tr>
-                            </table>
-                        </div>
-                    }
+                            </thead>   
+                            <tbody>
+                                {this.state.stats.map((team, id) => (
+                                    <tr key={id}>
+                                        {team.map((stat, id) => (
+                                            <td 
+                                                key={id} 
+                                                className={id === 0 ? 
+                                                    'school-cell' 
+                                                    :
+                                                    'cells'
+                                                }
+                                            >{stat}</td>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                }
               
             </div>
         )

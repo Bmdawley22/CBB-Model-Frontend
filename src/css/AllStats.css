@@ -1,0 +1,18 @@
+#table-wrapper {
+    display: flex;
+    justify-content: center;
+
+}
+table {
+    overflow-x: auto;
+    width: 80vh;
+    border: 3px solid black;
+
+}
+th {
+    margin: 0px 3px;
+    width: 8vw;
+    border: 1px solid black;
+    font-size: 100%;
+    padding: 0px 3px;
+}

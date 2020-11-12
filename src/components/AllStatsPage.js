@@ -41,7 +41,7 @@ class AllStatsPage extends Component {
         promise.then((stats) => {
 
             const headerArr = [];
-            for (const[key, value] of Object.entries(stats[0])) {
+            for (const[key] of Object.entries(stats[0])) {
                 headerArr.push(key)
             }
             this.setState({ header: headerArr })

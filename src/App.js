@@ -8,14 +8,14 @@ import AllStatsPage from './components/AllStatsPage';
 import SignupForm from './components/SignupForm';
 import Profile from './components/Profile';
 
-import { signup, loginUser, verifyUser } from './services/api_helper';
+import { signup, login, verifyUser } from './services/api_helper';
+import LoginForm from './components/LoginForm';
 
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loggedIn: false,
       stats: false,
       currentUser: null
     }
@@ -24,35 +24,53 @@ class App extends Component {
     e.preventDefault();
     console.log(newUserData)
     const currentUser = await signup(newUserData);
+    this.setState({ 
+      currentUser });
+    this.props.history.push('/profile');
+  }
+  handleLogin = async (e, loginData) => {
+    e.preventDefault();
+    const currentUser = await login(loginData);
     this.setState({ currentUser });
     this.props.history.push('/profile');
   }
-
-
+  handleLogout = () => {
+    localStorage.removeItem('authToken');
+    this.setState({ currentUser: null });
+    this.props.history.push('/login');
+  }
+  verifyUser = async () => {
+    const currentUser = await verifyUser();
+    if (currentUser) {
+      this.setState({ currentUser });
+    }
+  }
+  componentDidMount() {
+    this.verifyUser();
+  }
   render () {
     return (
       <div>
         <Header 
-          loggedIn={this.state.loggedIn}
+          currentUser={this.state.currentUser}
+          handleLogout={this.handleLogout}
         />
-        <NavBar 
-          loggedIn={this.state.loggedIn}
-        />
+        <NavBar currentUser={this.state.currentUser} />
         <Switch>
           <Route exact path='/' render={() => {
-            return <Home/>
+            return <Home currentUser={this.state.currentUser}/>
             }}
           />
           <Route path='/signup' render={() => {
-            return <SignupForm
-                      handleSignup={this.handleSignup}
-                  />
+            return <SignupForm handleSignup={this.handleSignup} />
+            }}
+          />
+          <Route path='/login' render={() => {
+            return <LoginForm handleLogin={this.handleLogin} />
             }}
           />
           <Route path='/profile' render={() => {
-            return <Profile
-                      currentUser={this.state.currentUser}
-                  />
+            return <Profile currentUser={this.state.currentUser} />
             }}
           />
           <Route path='/allstats' render={() => {

@@ -7,7 +7,7 @@ import '../css/NavBar.css';
 const NavBar = (props) => {
     return (
         <div>
-            {props.loggedIn &&
+            {props.currentUser &&
                 <div id='navbar'>
                     <Link to='/allStats' className='nav-link'>All Team Stats</Link>
                     <Link to='/differentials' className='nav-link'>Stat Differentials</Link>

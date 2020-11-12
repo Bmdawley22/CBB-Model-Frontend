@@ -6,7 +6,7 @@ const Header = (props) => {
     return (
         <header>
             <h1>NCAAM Model Generator</h1>
-            {props.loggedIn &&
+            {props.currentUser ?
                 <nav id='model-nav'>
                     <Link 
                         className='model-link' 
@@ -26,11 +26,19 @@ const Header = (props) => {
                         to='/profile'
                     >
                         <div>
-                            <img src='../../../images/bball' alt='basketball'/>
-                            <p>username</p>
+                            <img src='../../images/bball.png' alt='basketball'/>
+                            <p>{props.currentUser.username}</p>
                         </div>
                     </Link>
+                    <button onClick={props.handleLogout}>Logout</button>
                 </nav>
+            :
+                <nav id='model-nav'>
+                    <Link to='/home' className='nav-link'>Home</Link>
+                    <Link to='/signup' className='nav-link'>Signup</Link>
+                    <Link to='/login' className='nav-link'>Login</Link>   
+                </nav>
+                  
             }
         </header>
     );

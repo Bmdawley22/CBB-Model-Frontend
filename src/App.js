@@ -10,7 +10,7 @@ import Profile from './components/Profile';
 
 import { signup, login, verifyUser, getAllStats } from './services/api_helper';
 import LoginForm from './components/LoginForm';
-import BuildModel from './components/BuildModel';
+import BuildModel from './components/Build Model/BuildModel';
 
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
     this.state = {
       stats: false,
       statNames: null,
-      currentUser: null
+      currentUser: false
     }
   }
   handleSignup = async (e, newUserData) => {

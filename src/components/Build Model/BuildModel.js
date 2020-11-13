@@ -1,7 +1,12 @@
-import React, { Component } from 'react'
-import StatList from './StatList'
+import React, { Component } from 'react';
+import { withRouter} from 'react-router-dom';
 
-import { getAllStats } from '../services/api_helper';
+import StatList from './StatList';
+import ModelStats from './ModelStats';
+
+import { getAllStats } from '../../services/api_helper';
+
+import '../../css/BuildModel.css'
 
 
 class BuildModel extends Component {
@@ -11,6 +16,7 @@ class BuildModel extends Component {
         this.state = {
             validNames: [],
             modelStatNames: [],
+            modelStatWeights: []
         }
     }
     filterValidNames = async () => {
@@ -32,22 +38,42 @@ class BuildModel extends Component {
         modelStatNames.push(this.state.validNames[id])
         this.setState({ modelStatNames })
     }
-
+    handleRemove = (id) => {
+        let temp = []
+        for( let i = 0; i < this.state.modelStatNames.length; i++) {
+            if(i !== id) {
+                temp.push(this.state.modelStatNames[i])
+            }
+        }
+        this.setState({ modelStatNames: temp })
+    }
+    handleModelSubmit = (e) => {
+        e.preventDefault();
+        let temp = 0;
+        for (let i = 0; i < e.target.length - 1; i = i + 2) {
+            console.log(e.target[i].valueAsNumber)
+            
+        }
+    }
+    
     componentDidMount () {
         this.filterValidNames();
     }
     render () {
-        console.log(this.state.modelStatNames)
         return (
-            <div>
-                <div>
+            <div id='build-model-wrapper'>
+                <div id='stat-list-wrapper'>
                     <h3>Choose from Available Stats</h3>
                     <StatList statNames={this.state.validNames} handleAdd={this.handleAdd} />
                 </div>
-                
+                <ModelStats 
+                    modelStatNames={this.state.modelStatNames}
+                    handleRemove={this.handleRemove}
+                    handleModelSubmit={this.handleModelSubmit}
+                />
             </div>
         )
     }
 }
 
-export default BuildModel
+export default withRouter(BuildModel)

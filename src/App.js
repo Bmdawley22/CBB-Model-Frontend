@@ -8,7 +8,7 @@ import AllStatsPage from './components/AllStatsPage';
 import SignupForm from './components/SignupForm';
 import Profile from './components/Profile';
 
-import { signup, login, verifyUser } from './services/api_helper';
+import { signup, login, verifyUser, getAllStats } from './services/api_helper';
 import LoginForm from './components/LoginForm';
 
 
@@ -17,6 +17,7 @@ class App extends Component {
     super(props);
     this.state = {
       stats: false,
+      statNames: null,
       currentUser: null
     }
   }
@@ -45,6 +46,34 @@ class App extends Component {
       this.setState({ currentUser });
     }
   }
+  getStats = async () => {
+    let stats = await getAllStats();
+    stats = stats.data;
+
+    console.log(stats)
+
+    const statNamesArr = [];
+    for (const [key] of Object.entries(stats[0])) {
+        console.log(typeof(key))
+        if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
+          statNamesArr.push(key)
+        }  
+    }
+    this.setState({ statNames: statNamesArr })
+
+    let tempTeamStats = [];
+    let statArr = []
+    for (let i = 0; i < stats.length; i++) {
+        for (const [key, value] of Object.entries(stats[i])) {
+            if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
+                tempTeamStats.push(value)
+            }
+        }
+        statArr[i] = tempTeamStats;
+        tempTeamStats = [];
+    }
+    this.setState({ stats: statArr })
+}
   componentDidMount() {
     this.verifyUser();
   }
@@ -74,7 +103,11 @@ class App extends Component {
             }}
           />
           <Route path='/allstats' render={() => {
-            return <AllStatsPage/>
+            return <AllStatsPage
+                    stats={this.state.stats}
+                    statNames={this.state.statNames}
+                    getStats={this.getStats}
+                  />
             }}
           />
         </Switch>

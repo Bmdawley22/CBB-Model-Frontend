@@ -49,17 +49,18 @@ class BuildModel extends Component {
     }
     handleModelSubmit = (e) => {
         e.preventDefault();
-        let temp = 0;
+        let temp = [];
         for (let i = 0; i < e.target.length - 1; i = i + 2) {
-            console.log(e.target[i].valueAsNumber)
-            
+            temp.push(e.target[i].valueAsNumber);
         }
+        this.setState({ modelStatWeights: temp})
     }
     
     componentDidMount () {
         this.filterValidNames();
     }
     render () {
+        console.log(this.state.modelStatNames, this.state.modelStatWeights)
         return (
             <div id='build-model-wrapper'>
                 <div id='stat-list-wrapper'>

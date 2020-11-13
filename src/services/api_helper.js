@@ -32,3 +32,8 @@ export const verifyUser = async () => {
   }
   return false;
 }
+
+export const getAllStats = async () => {
+  const resp = await api.get('/stats/getAll');
+  return resp;
+}

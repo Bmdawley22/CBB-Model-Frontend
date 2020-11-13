@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import '../css/AllStats.css';
 
 import * as XLSX from 'xlsx';
+import { getAllStats } from '../services/api_helper';
+import { constants } from 'buffer';
 
 class AllStatsPage extends Component {
     constructor(props) {
@@ -13,87 +15,75 @@ class AllStatsPage extends Component {
         }
     }
 
-    readExcel = (file) => {
-        const promise = new Promise((resolve, reject) => {
+    getStats = async () => {
+        let stats = await getAllStats();
+        stats = stats.data;
 
-            const fileReader = new FileReader();
-            fileReader.readAsArrayBuffer(file)
+        console.log(stats)
 
-            fileReader.onload = (e) => {
-                const bufferArray = e.target.result;
-
-                const wb = XLSX.read(bufferArray, { type: 'buffer'});
-
-                const wsname = wb.SheetNames[0];
-
-                const ws = wb.Sheets[wsname];
-
-                const stats = XLSX.utils.sheet_to_json(ws);
-
-                resolve(stats);
-            }
-
-            fileReader.onerror = ((error) => {
-                reject(error);
-            })
-        });
-        
-        promise.then((stats) => {
-
-            const headerArr = [];
-            for (const[key] of Object.entries(stats[0])) {
+        const headerArr = [];
+        for (const [key] of Object.entries(stats[0])) {
+            console.log(typeof(key))
+            if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
                 headerArr.push(key)
-            }
-            this.setState({ header: headerArr })
+            }  
+        }
+        this.setState({ header: headerArr })
 
-            let tempTeamStats = [];
-            let statArr = []
-            for (let i = 0; i < stats.length; i++) {
-                for (const[key, value] of Object.entries(stats[i])) {
+        let tempTeamStats = [];
+        let statArr = []
+        for (let i = 0; i < stats.length; i++) {
+            for (const [key, value] of Object.entries(stats[i])) {
+                if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
                     tempTeamStats.push(value)
                 }
-                statArr[i] = tempTeamStats;
-                tempTeamStats = [];
             }
-            this.setState({ stats: statArr })
-        })
+            statArr[i] = tempTeamStats;
+            tempTeamStats = [];
+        }
+        this.setState({ stats: statArr })
     }
-    render () {
-        return (    
+
+    componentDidMount() {
+        this.getStats();
+
+    }
+    render() {
+        return (
             <div id='allstats-div'>
-                <input 
-                    type='file' 
+                <input
+                    type='file'
                     onChange={(e) => {
                         const file = e.target.files[0];
                         this.readExcel(file)
-                    }} 
+                    }}
                 />
-                
-                {this.state.stats && 
+
+                {this.state.stats &&
                     <div id='table-wrapper'>
                         <table>
                             <thead>
                                 <tr id='table-header'>
                                     {this.state.header.map((header, id) => {
-                                        return <th 
-                                                    key={id} 
-                                                    className={id === 0 ? 
-                                                        'school-header' 
-                                                        :
-                                                        'table-headers'
-                                                    }
-                                                >{header}</th>
+                                        return <th
+                                            key={id}
+                                            className={id === 0 ?
+                                                'school-header'
+                                                :
+                                                'table-headers'
+                                            }
+                                        >{header}</th>
                                     })}
                                 </tr>
-                            </thead>   
+                            </thead>
                             <tbody>
                                 {this.state.stats.map((team, id) => (
                                     <tr key={id}>
                                         {team.map((stat, id) => (
-                                            <td 
-                                                key={id} 
-                                                className={id === 0 ? 
-                                                    'school-cell' 
+                                            <td
+                                                key={id}
+                                                className={id === 0 ?
+                                                    'school-cell'
                                                     :
                                                     'cells'
                                                 }
@@ -105,7 +95,7 @@ class AllStatsPage extends Component {
                         </table>
                     </div>
                 }
-              
+
             </div>
         )
     }

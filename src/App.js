@@ -10,6 +10,7 @@ import Profile from './components/Profile';
 
 import { signup, login, verifyUser, getAllStats } from './services/api_helper';
 import LoginForm from './components/LoginForm';
+import BuildModel from './components/BuildModel';
 
 
 class App extends Component {
@@ -50,11 +51,8 @@ class App extends Component {
     let stats = await getAllStats();
     stats = stats.data;
 
-    console.log(stats)
-
     const statNamesArr = [];
     for (const [key] of Object.entries(stats[0])) {
-        console.log(typeof(key))
         if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
           statNamesArr.push(key)
         }  
@@ -76,6 +74,7 @@ class App extends Component {
 }
   componentDidMount() {
     this.verifyUser();
+    this.getStats();
   }
   render () {
     return (
@@ -102,10 +101,12 @@ class App extends Component {
             return <Profile currentUser={this.state.currentUser} />
             }}
           />
+          <Route path='/build-model' render={() => {
+            return <BuildModel />
+            }}
+          />
           <Route path='/allstats' render={() => {
             return <AllStatsPage
-                    stats={this.state.stats}
-                    statNames={this.state.statNames}
                     getStats={this.getStats}
                   />
             }}

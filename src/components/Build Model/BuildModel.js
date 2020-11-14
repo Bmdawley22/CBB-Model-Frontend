@@ -4,7 +4,7 @@ import { withRouter} from 'react-router-dom';
 import StatList from './StatList';
 import ModelStats from './ModelStats';
 
-import { getAllStats } from '../../services/api_helper';
+import { getAllOffStats } from '../../services/api_helper';
 
 import '../../css/BuildModel.css'
 
@@ -21,7 +21,7 @@ class BuildModel extends Component {
     }
     filterValidNames = async () => {
 
-        let stats = await getAllStats();
+        let stats = await getAllOffStats();
         stats = stats.data;
 
         let excludeNames = ['id','createdAt','updatedAt','school', 'Total_G','Total_W', 'Total_L','Conf_W', 'Conf_L', 'Home_W', 'Home_L','Away_W','Away_L']
@@ -49,6 +49,7 @@ class BuildModel extends Component {
     }
     handleModelSubmit = (e) => {
         e.preventDefault();
+        console.log(e)
         let temp = [];
         for (let i = 0; i < e.target.length - 1; i = i + 2) {
             temp.push(e.target[i].valueAsNumber);

@@ -1,14 +1,11 @@
 import React, { Component } from 'react'
-import '../css/AllStats.css';
+import '../../css/StatTable.css';
 
-class AllStatsPage extends Component {
+class StatTable extends Component {
     constructor(props) {
         super(props);
 
     }
-    componentDidMount() {
-        this.props.getStats();
-      }
     render() {
         return (
             <div id='allstats-div'>
@@ -54,4 +51,4 @@ class AllStatsPage extends Component {
     }
 }
 
-export default AllStatsPage
+export default StatTable;

@@ -4,27 +4,27 @@ import { Route, Switch, withRouter} from 'react-router-dom';
 import Header from './components/Header';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
-import AllStatsPage from './components/AllStatsPage';
+import StatTable from './components/Stats/StatTable';
 import SignupForm from './components/SignupForm';
 import Profile from './components/Profile';
 
-import { signup, login, verifyUser, getAllStats } from './services/api_helper';
+import { signup, login, verifyUser, getAllOffStats } from './services/api_helper';
 import LoginForm from './components/LoginForm';
 import BuildModel from './components/Build Model/BuildModel';
+import StatContainer from './components/Stats/StatContainer';
 
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      stats: false,
-      statNames: null,
+      offStats: false,
+      offStatNames: null,
       currentUser: false
     }
   }
   handleSignup = async (e, newUserData) => {
     e.preventDefault();
-    console.log(newUserData)
     const currentUser = await signup(newUserData);
     this.setState({ 
       currentUser });
@@ -47,36 +47,36 @@ class App extends Component {
       this.setState({ currentUser });
     }
   }
-  getStats = async () => {
-    let stats = await getAllStats();
-    stats = stats.data;
-
-    const statNamesArr = [];
-    for (const [key] of Object.entries(stats[0])) {
+  getOffStats = async () => {
+    let offStats = await getAllOffStats();
+    offStats = offStats.data;
+    const offStatNamesArr = [];
+    for (const [key] of Object.entries(offStats[0])) {
         if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
-          statNamesArr.push(key)
+          offStatNamesArr.push(key.toUpperCase())
         }  
     }
-    this.setState({ statNames: statNamesArr })
+    this.setState({ offStatNames: offStatNamesArr })
 
-    let tempTeamStats = [];
-    let statArr = []
-    for (let i = 0; i < stats.length; i++) {
-        for (const [key, value] of Object.entries(stats[i])) {
+    let tempOffStats = [];
+    let offStatArr = []
+    for (let i = 0; i < offStats.length; i++) {
+        for (const [key, value] of Object.entries(offStats[i])) {
             if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
-                tempTeamStats.push(value)
+              tempOffStats.push(value)
             }
         }
-        statArr[i] = tempTeamStats;
-        tempTeamStats = [];
+        offStatArr[i] = tempOffStats;
+        tempOffStats = [];
     }
-    this.setState({ stats: statArr })
+    this.setState({ offStats: offStatArr })
 }
   componentDidMount() {
     this.verifyUser();
-    this.getStats();
+    this.getOffStats();
   }
   render () {
+    
     return (
       <div>
         <Header 
@@ -105,9 +105,10 @@ class App extends Component {
             return <BuildModel />
             }}
           />
-          <Route path='/allstats' render={() => {
-            return <AllStatsPage
-                    getStats={this.getStats}
+          <Route path='/stats' render={() => {
+            return <StatContainer
+                      offStats={this.state.offStats}
+                      offStatNames={this.state.offStatNames}
                   />
             }}
           />

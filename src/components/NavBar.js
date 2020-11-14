@@ -9,7 +9,7 @@ const NavBar = (props) => {
         <div>
             {props.currentUser &&
                 <div id='navbar'>
-                    <Link to='/allStats' className='nav-link'>All Team Stats</Link>
+                    <Link to='/stats' className='nav-link'>All Team Stats</Link>
                     <Link to='/differentials' className='nav-link'>Stat Differentials</Link>
                     <Link to='/predictor' className='nav-link'>Game Predictor</Link>
                     <Link to='/history' className='nav-link'>Game History</Link>

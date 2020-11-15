@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import '../../css/Stats.css';
 
+import StatAverages from './StatAverages';
 import StatTable from './StatTable';
 
 class StatContainer extends Component {
@@ -10,6 +11,10 @@ class StatContainer extends Component {
         
         this.state = {
             statsToShow: 'offense',
+            offStatAverages: [],
+            offStatNames: [],
+            defStatAverages: [],
+            defStatNames: []
         }
     }
     changeToOffense = () => {
@@ -17,6 +22,23 @@ class StatContainer extends Component {
     }
     changeToDefense = () => {
         this.setState({ statsToShow: 'defense'})
+    }
+    componentDidMount() {
+        let offStatAverages = [];
+        let offStatNames = [];
+        for (const [key, value] of Object.entries(this.props.offStatAverages)) {
+            offStatAverages.push(value);
+            offStatNames.push(key);
+        }
+        this.setState({ offStatAverages, offStatNames})
+
+        let defStatAverages = [];
+        let defStatNames = [];
+        for (const [key, value] of Object.entries(this.props.offStatAverages)) {
+            defStatAverages.push(value);
+            defStatNames.push(key);
+        }
+        this.setState({ defStatAverages, defStatNames})
     }
     render () {
         return (
@@ -30,6 +52,15 @@ class StatContainer extends Component {
                         onClick={this.changeToDefense}
                         id={this.state.statsToShow === 'defense' && 'active' }
                     >Defensive Stats</button>
+                </div>
+                <div>
+                    <StatAverages 
+                        offStatAverages={this.state.offStatAverages}
+                        offStatNames={this.state.offStatNames}
+                        defStatAverages={this.state.defStatAverages}
+                        defStatNames={this.state.defStatNames}
+                        statsToShow={this.state.statsToShow}
+                    />
                 </div>
                 {this.state.statsToShow === 'offense' &&
                     <div>

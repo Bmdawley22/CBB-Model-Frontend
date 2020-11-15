@@ -23,6 +23,8 @@ class App extends Component {
       offStatNames: null,
       defStats: false,
       defStatNames: null,
+      offStatAverages: {},
+      defStatAverages: {},
       currentUser: false
     }
   }
@@ -53,6 +55,10 @@ class App extends Component {
   getOffStats = async () => {
     let offStats = await getAllOffStats();
     offStats = offStats.data;
+
+    let offStatAverages = this.getAverages(offStats);
+    this.setState({ offStatAverages });
+
     const offStatNamesArr = [];
     for (const [key] of Object.entries(offStats[0])) {
         if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
@@ -77,8 +83,10 @@ class App extends Component {
 getDefStats = async () => {
   let defStats = await getAllDefStats();
   defStats = defStats.data;
-  console.log(defStats)
-  this.getAverages(defStats)
+  
+  let defStatAverages = this.getAverages(defStats);
+  this.setState({ defStatAverages });
+
   const defStatNamesArr = [];
   for (const [key] of Object.entries(defStats[0])) {
       if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
@@ -102,10 +110,28 @@ getDefStats = async () => {
 
 }
 getAverages = (stats) => {
-  let sums = [];
+  let sums = {};
+  let averages = {};
+  let excludeNames = ['id','createdAt','updatedAt','school', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+  let newVal = 0;
   for( let i = 0; i < stats.length; i++) {
-    
+    for (const [key, value] of Object.entries(stats[i])) {
+      if ( !excludeNames.includes(key) ) {
+        if (sums[`${key}`]) {
+          newVal = sums[`${key}`] + value;
+          sums[`${key}`] = newVal;
+        }
+        else {
+          sums[`${key}`] = value;
+        }
+      }
+    }
   }
+  for (const [key, value] of Object.entries(sums)) {
+    newVal = value/stats.length
+    averages[`${key}`] = newVal;
+  }
+  return averages;
 }
   componentDidMount() {
     this.verifyUser();
@@ -148,6 +174,8 @@ getAverages = (stats) => {
                       offStatNames={this.state.offStatNames}
                       defStats={this.state.defStats}
                       defStatNames={this.state.defStatNames}
+                      offStatAverages={this.state.offStatAverages}
+                      defStatAverages={this.state.defStatAverages}
                   />
             }}
           />

@@ -4,7 +4,7 @@ import { withRouter} from 'react-router-dom';
 import StatList from './StatList';
 import ModelStats from './ModelStats';
 
-import { getAllOffStats } from '../../services/api_helper';
+import { getAllOffStats, getAllDefStats } from '../../services/api_helper';
 
 import '../../css/BuildModel.css'
 

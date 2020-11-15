@@ -21,13 +21,21 @@ class BuildModel extends Component {
     }
     filterValidNames = async () => {
 
-        let stats = await getAllOffStats();
-        stats = stats.data;
+        let offStats = await getAllOffStats();
+         offStats = offStats.data;
+
+         let defStats = await getAllDefStats();
+        defStats = defStats.data;
 
         let excludeNames = ['id','createdAt','updatedAt','school', 'Total_G','Total_W', 'Total_L',
                             'Conf_W', 'Conf_L', 'Home_W', 'Home_L','Away_W','Away_L']
         let validNames = [];
-        for (const [key] of Object.entries(stats[0])) {
+        for (const [key] of Object.entries(offStats[0])) {
+            if(!excludeNames.includes(key)) {
+                validNames.push(key);
+            }
+        }
+        for (const [key] of Object.entries(defStats[0])) {
             if(!excludeNames.includes(key)) {
                 validNames.push(key);
             }

@@ -27,17 +27,18 @@ class BuildModel extends Component {
          let defStats = await getAllDefStats();
         defStats = defStats.data;
 
-        let excludeNames = ['id','createdAt','updatedAt','school', 'Total_G','Total_W', 'Total_L',
-                            'Conf_W', 'Conf_L', 'Home_W', 'Home_L','Away_W','Away_L']
+        let excludeNames = ['id','createdAt','updatedAt','school', 'total_g','total_w', 'total_l',
+                            'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l']
+        let excludeNamesDef = ['w_l_perc', 'sos', 'srs',]
         let validNames = [];
         for (const [key] of Object.entries(offStats[0])) {
             if(!excludeNames.includes(key)) {
-                validNames.push(key);
+                validNames.push(key.toUpperCase());
             }
         }
         for (const [key] of Object.entries(defStats[0])) {
-            if(!excludeNames.includes(key)) {
-                validNames.push(key);
+            if(!excludeNames.includes(key) && !excludeNamesDef.includes(key)) {
+                validNames.push(key.toUpperCase());
             }
         }
         this.setState({ validNames })
@@ -70,7 +71,6 @@ class BuildModel extends Component {
         this.filterValidNames();
     }
     render () {
-        console.log(this.state.modelStatNames, this.state.modelStatWeights)
         return (
             <div id='build-model-wrapper'>
                 <div id='stat-list-wrapper'>

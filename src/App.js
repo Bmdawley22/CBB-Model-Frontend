@@ -12,6 +12,7 @@ import { signup, login, verifyUser, getAllOffStats, getAllDefStats } from './ser
 import LoginForm from './components/LoginForm';
 import BuildModel from './components/Build Model/BuildModel';
 import StatContainer from './components/Stats/StatContainer';
+import StatDiffContainer from './components/Stats/StatDiffContainer';
 
 
 class App extends Component {
@@ -76,6 +77,8 @@ class App extends Component {
 getDefStats = async () => {
   let defStats = await getAllDefStats();
   defStats = defStats.data;
+  console.log(defStats)
+  this.getAverages(defStats)
   const defStatNamesArr = [];
   for (const [key] of Object.entries(defStats[0])) {
       if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
@@ -96,6 +99,13 @@ getDefStats = async () => {
       tempDefStats = [];
   }
   this.setState({ defStats: defStatArr })
+
+}
+getAverages = (stats) => {
+  let sums = [];
+  for( let i = 0; i < stats.length; i++) {
+    
+  }
 }
   componentDidMount() {
     this.verifyUser();
@@ -134,6 +144,15 @@ getDefStats = async () => {
           />
           <Route path='/stats' render={() => {
             return <StatContainer
+                      offStats={this.state.offStats}
+                      offStatNames={this.state.offStatNames}
+                      defStats={this.state.defStats}
+                      defStatNames={this.state.defStatNames}
+                  />
+            }}
+          />
+          <Route path='/differentials' render={() => {
+            return <StatDiffContainer
                       offStats={this.state.offStats}
                       offStatNames={this.state.offStatNames}
                       defStats={this.state.defStats}

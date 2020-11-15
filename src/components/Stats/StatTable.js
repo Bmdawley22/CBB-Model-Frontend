@@ -11,6 +11,7 @@ class StatTable extends Component {
 
     }
     handleSearchChange = (e) => {
+        e.preventDefault();
         const { name, value } = e.target;
         this.setState({
           search: value
@@ -24,7 +25,6 @@ class StatTable extends Component {
         this.setState({ schoolNames })
     }
     render() {
-        console.log(this.state.schoolNames)
         return (
             <div>
                 <form>

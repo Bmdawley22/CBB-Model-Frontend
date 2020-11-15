@@ -29,8 +29,8 @@ class StatContainer extends Component {
                 }
                 {this.state.statsToShow === 'defense' &&
                     <StatTable
-                        stats={this.props.offStats}
-                        statNames={this.props.offStatNames}
+                        stats={this.props.defStats}
+                        statNames={this.props.defStatNames}
                     />
                 }
             </div>

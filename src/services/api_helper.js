@@ -36,3 +36,7 @@ export const getAllOffStats = async () => {
   const resp = await api.get('/stats/off-stats');
   return resp;
 }
+export const getAllDefStats = async () => {
+  const resp = await api.get('/stats/def-stats');
+  return resp;
+}

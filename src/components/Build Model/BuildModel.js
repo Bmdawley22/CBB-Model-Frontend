@@ -24,7 +24,8 @@ class BuildModel extends Component {
         let stats = await getAllOffStats();
         stats = stats.data;
 
-        let excludeNames = ['id','createdAt','updatedAt','school', 'Total_G','Total_W', 'Total_L','Conf_W', 'Conf_L', 'Home_W', 'Home_L','Away_W','Away_L']
+        let excludeNames = ['id','createdAt','updatedAt','school', 'Total_G','Total_W', 'Total_L',
+                            'Conf_W', 'Conf_L', 'Home_W', 'Home_L','Away_W','Away_L']
         let validNames = [];
         for (const [key] of Object.entries(stats[0])) {
             if(!excludeNames.includes(key)) {

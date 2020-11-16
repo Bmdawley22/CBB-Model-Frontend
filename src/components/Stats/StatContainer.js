@@ -11,10 +11,6 @@ class StatContainer extends Component {
         
         this.state = {
             statsToShow: 'offense',
-            offStatAverages: [],
-            offAvgNames: [],
-            defStatAverages: [],
-            defAvgNames: []
         }
     }
     changeToOffense = () => {
@@ -23,41 +19,9 @@ class StatContainer extends Component {
     changeToDefense = () => {
         this.setState({ statsToShow: 'defense'})
     }
-    formatAvg = () => {
-        let offStatAverages = [];
-        for (const [key, value] of Object.entries(this.props.offStatAverages)) {
-            offStatAverages.push(value);
-        }
-        this.setState({ offStatAverages})
-
-        let excludeNames = ['SCHOOL', 'CONF W', 'CONF L', 'HOME W', 'HOME L','AWAY W','AWAY L'];
-        let offAvgNames = [];
-        
-        for (let i = 0; i < this.props.offStatNames.length; i++) {
-            if(!excludeNames.includes(this.props.offStatNames[i])) {
-                offAvgNames.push(this.props.offStatNames[i])
-            }
-        }
-        this.setState({ offAvgNames })
-
-        let defStatAverages = [];
-        for (const [key, value] of Object.entries(this.props.defStatAverages)) {
-            defStatAverages.push(value);
-        }
-        this.setState({ defStatAverages })
-
-        let excludeNamesDef = ['SCHOOL', 'CONF W', 'CONF L', 'HOME W', 'HOME L','AWAY W','AWAY L', ];
-        let defAvgNames = [];
-        
-        for (let i = 0; i < this.props.defStatNames.length; i++) {
-            if(!excludeNamesDef.includes(this.props.defStatNames[i])) {
-                defAvgNames.push(this.props.defStatNames[i])
-            }
-        }
-        this.setState({ defAvgNames })
-    }
+    
     componentDidMount() {
-        this.formatAvg();
+        //this.formatAvg();
     }
     render () {
         return (
@@ -76,12 +40,12 @@ class StatContainer extends Component {
                 {this.state.statsToShow === 'offense' &&
                     <div>
                         <h2>Offensive Per Game Stats</h2>
-                        {this.state.offStatAverages.length === 0 ?
-                            <button className='show-avg' onClick={this.formatAvg}>Show Averages</button>
+                        {this.props.offStatAverages.length === 0 ?
+                            <button className='show-avg' onClick={this.props.getAvgNames}>Show Averages</button>
                         :
                             <StatAverages 
-                                averages={this.state.offStatAverages}
-                                names={this.state.offAvgNames}
+                                averages={this.props.offStatAverages}
+                                names={this.props.offAvgNames}
                             />
                         }
                         <StatTable
@@ -93,12 +57,12 @@ class StatContainer extends Component {
                 {this.state.statsToShow === 'defense' &&
                     <div>
                         <h2>Defensive Per Game Stats</h2>
-                        {this.state.defStatAverages.length === 0 ?
-                            <button className='show-avg' onClick={this.formatAvg}>Show Averages</button>
+                        {this.props.defStatAverages.length === 0 ?
+                            <button className='show-avg' onClick={this.props.getAvgNames}>Show Averages</button>
                         :
                             <StatAverages 
-                                averages={this.state.defStatAverages}
-                                names={this.state.defAvgNames}
+                                averages={this.props.defStatAverages}
+                                names={this.props.defAvgNames}
                             />
                         }
                         <StatTable

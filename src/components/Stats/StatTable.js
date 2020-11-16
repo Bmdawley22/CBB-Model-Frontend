@@ -17,12 +17,15 @@ class StatTable extends Component {
           search: value
         })
     }
-    componentDidMount () {
+    getSchoolNames = () => {
         let schoolNames = [];
         for (let i = 0; i < this.props.stats.length; i++) {
             schoolNames.push(this.props.stats[i][0].toLowerCase())
         }
         this.setState({ schoolNames })
+    }
+    componentDidMount () {
+        this.getSchoolNames();
     }
     render() {
         return (

@@ -26,8 +26,10 @@ class App extends Component {
       defStatNames: ['SCHOOL', 'TOTAL G', 'TOTAL W', 'TOTAL L', 'W-L %', 'SRS', 'SOS', 'CONF W', 'CONF L','HOME W','HOME L',
                     'AWAY W', 'AWAY L', 'PTS ALL', 'FG ALL', 'FGA ALL', 'FG % ALL', '3 PT ALL', '3 PTA ALL', '3 PT % ALL',
                     'FT ALL', 'FTA ALL', 'ORB ALL', 'TRB ALL', 'ASST ALL', 'STL ALL', 'BLK ALL', 'OPP TOV', 'OPP PF'],
-      offStatAverages: {},
-      defStatAverages: {},
+      offStatAverages: [],
+      defStatAverages: [],
+      offAvgNames: [],
+      defAvgNames: [],
       currentUser: false
     }
   }
@@ -98,7 +100,7 @@ getDefStats = async () => {
 }
 getAverages = (stats) => {
   let sums = {};
-  let averages = {};
+  let averagesObj = {};
   let excludeNames = ['id','createdAt','updatedAt','school', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
   let newVal = 0;
   for( let i = 0; i < stats.length; i++) {
@@ -116,15 +118,43 @@ getAverages = (stats) => {
   }
   for (const [key, value] of Object.entries(sums)) {
     newVal = value/stats.length
-    averages[`${key}`] = newVal.toFixed(2);
+    averagesObj[`${key}`] = newVal.toFixed(2);
   }
-  return averages;
+  let averagesArr = [];
+  for (const [key, value] of Object.entries(averagesObj)) {
+    averagesArr.push(value);
+  }
+  return averagesArr;
 }
+getAvgNames = () => {
+  
+  let excludeNames = ['SCHOOL', 'CONF W', 'CONF L', 'HOME W', 'HOME L','AWAY W','AWAY L'];
+  let offAvgNames = [];
+  
+  for (let i = 0; i < this.state.offStatNames.length; i++) {
+      if(!excludeNames.includes(this.state.offStatNames[i])) {
+          offAvgNames.push(this.state.offStatNames[i])
+      }
+  }
+  this.setState({ offAvgNames })
+
+  let defAvgNames = [];
+  
+  for (let i = 0; i < this.state.defStatNames.length; i++) {
+      if(!excludeNames.includes(this.state.defStatNames[i])) {
+          defAvgNames.push(this.state.defStatNames[i])
+      }
+  }
+  this.setState({ defAvgNames })
+}
+// getDifferentials = () => {
+  
+// }
   componentDidMount() {
     this.verifyUser();
     this.getOffStats();
     this.getDefStats();
-
+    this.getAvgNames();
   }
   render () {
     return (
@@ -163,6 +193,9 @@ getAverages = (stats) => {
                       defStatNames={this.state.defStatNames}
                       offStatAverages={this.state.offStatAverages}
                       defStatAverages={this.state.defStatAverages}
+                      offAvgNames={this.state.offAvgNames}
+                      defAvgNames={this.state.defAvgNames}
+                      getAvgNames={this.getAvgNames}
                   />
             }}
           />

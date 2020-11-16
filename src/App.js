@@ -244,7 +244,7 @@ class App extends Component {
     }
     
     for (let i = 0; i < defAvgNames.length; i++) {
-        if( !validNames.includes(defAvgNames[i])) {
+        if( !validNames.includes(defAvgNames[i]) && defAvgNames[i] !== 'TOTAL G') {
             validNames.push(defAvgNames[i])
         }
     }
@@ -252,14 +252,28 @@ class App extends Component {
   }
   handleModelSubmit = (e, modelStatNames) => {
     e.preventDefault();
-    console.log(e, modelStatNames)
     
-    
-    let temp = [];
+    let modelValues = [];
     for (let i = 0; i < e.target.length - 1; i = i + 2) {
-        temp.push(e.target[i].valueAsNumber);
+      modelValues.push(e.target[i].valueAsNumber);
     }
-    console.log(temp)
+    let userModel = {}
+    userModel.user_id = this.state.currentUser.id;
+    for(let i = 0; i < this.state.validNames.length; i++) {
+      console.log(this.state.validNames[i])
+      if ( modelStatNames.includes(this.state.validNames[i]) ) {
+        for (let j = 0; j < modelStatNames.length; j++) {
+          if (this.state.validNames[i] ===  modelStatNames[j]) {
+            userModel[`${this.state.validNames[i]}`] = modelValues[j];
+          }
+        }
+      }
+      else {
+        userModel[`${this.state.validNames[i]}`] = 0;
+      }
+    }
+    console.log(userModel)
+    this.setState({ userModel })
   }
   componentDidMount() {
     this.verifyUser();

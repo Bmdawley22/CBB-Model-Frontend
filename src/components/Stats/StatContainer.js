@@ -12,9 +12,9 @@ class StatContainer extends Component {
         this.state = {
             statsToShow: 'offense',
             offStatAverages: [],
-            offStatNames: [],
+            offAvgNames: [],
             defStatAverages: [],
-            defStatNames: []
+            defAvgNames: []
         }
     }
     changeToOffense = () => {
@@ -23,25 +23,43 @@ class StatContainer extends Component {
     changeToDefense = () => {
         this.setState({ statsToShow: 'defense'})
     }
-    componentDidMount() {
+    formatAvg = () => {
         let offStatAverages = [];
-        let offStatNames = [];
         for (const [key, value] of Object.entries(this.props.offStatAverages)) {
             offStatAverages.push(value);
-            offStatNames.push(key.toUpperCase());
         }
-        this.setState({ offStatAverages, offStatNames})
+        this.setState({ offStatAverages})
+
+        let excludeNames = ['SCHOOL', 'CONF W', 'CONF L', 'HOME W', 'HOME L','AWAY W','AWAY L'];
+        let offAvgNames = [];
+        
+        for (let i = 0; i < this.props.offStatNames.length; i++) {
+            if(!excludeNames.includes(this.props.offStatNames[i])) {
+                offAvgNames.push(this.props.offStatNames[i])
+            }
+        }
+        this.setState({ offAvgNames })
 
         let defStatAverages = [];
-        let defStatNames = [];
         for (const [key, value] of Object.entries(this.props.defStatAverages)) {
             defStatAverages.push(value);
-            defStatNames.push(key.toUpperCase());
         }
-        this.setState({ defStatAverages, defStatNames})
+        this.setState({ defStatAverages })
+
+        let excludeNamesDef = ['SCHOOL', 'CONF W', 'CONF L', 'HOME W', 'HOME L','AWAY W','AWAY L', ];
+        let defAvgNames = [];
+        
+        for (let i = 0; i < this.props.defStatNames.length; i++) {
+            if(!excludeNamesDef.includes(this.props.defStatNames[i])) {
+                defAvgNames.push(this.props.defStatNames[i])
+            }
+        }
+        this.setState({ defAvgNames })
+    }
+    componentDidMount() {
+        this.formatAvg();
     }
     render () {
-        console.log(this.state)
         return (
             <div id='stat-container'>
                 <div id='buttons'>
@@ -58,10 +76,14 @@ class StatContainer extends Component {
                 {this.state.statsToShow === 'offense' &&
                     <div>
                         <h2>Offensive Per Game Stats</h2>
-                        <StatAverages 
-                            averages={this.state.offStatAverages}
-                            names={this.state.offStatNames}
-                        />
+                        {this.state.offStatAverages.length === 0 ?
+                            <button className='show-avg' onClick={this.formatAvg}>Show Averages</button>
+                        :
+                            <StatAverages 
+                                averages={this.state.offStatAverages}
+                                names={this.state.offAvgNames}
+                            />
+                        }
                         <StatTable
                             stats={this.props.offStats}
                             statNames={this.props.offStatNames}
@@ -71,10 +93,14 @@ class StatContainer extends Component {
                 {this.state.statsToShow === 'defense' &&
                     <div>
                         <h2>Defensive Per Game Stats</h2>
-                        <StatAverages 
-                            averages={this.state.defStatAverages}
-                            names={this.state.defStatNames}
-                        />
+                        {this.state.defStatAverages.length === 0 ?
+                            <button className='show-avg' onClick={this.formatAvg}>Show Averages</button>
+                        :
+                            <StatAverages 
+                                averages={this.state.defStatAverages}
+                                names={this.state.defAvgNames}
+                            />
+                        }
                         <StatTable
                             stats={this.props.defStats}
                             statNames={this.props.defStatNames}

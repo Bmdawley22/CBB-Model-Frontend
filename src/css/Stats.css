@@ -43,6 +43,13 @@ form h4 {
     align-items: center;
     margin-top: 3vh;
 }
+.show-avg {
+    margin: 0px 45vw;
+    width: 10vw;
+}
+h3 {
+    text-align: center
+}
 #averages {
     display: flex;
     justify-content: left;
@@ -53,6 +60,7 @@ form h4 {
 .average {
     padding: 0px 8px;
     border: 2px black solid;
+    min-width: 6vw;
 }
 .average h4 {
     border-bottom: 1px black solid;
@@ -65,10 +73,10 @@ form h4 {
     overflow-x: auto;
     width: 80vw;
     border: 10px solid black;
-
 }
 table {
     overflow-x: auto;
+    margin-right: 10px;
 }
 #table-header {
     display: block;
@@ -78,10 +86,10 @@ table {
     border: 1px black solid;
 }
 .school-header {
-    min-width: 5vw;
+    min-width: 9vw;
 }
 .table-headers {
-    min-width: 3vw;
+    min-width: 6vw;
 }
 tbody {
     display: block;
@@ -95,8 +103,8 @@ tr td {
     text-align: center;
 }
 .school-cell {
-    min-width: 5vw;
+    min-width: 9vw;
 }
 .cells {
-    min-width: 3vw;
+    min-width: 6vw;
 }

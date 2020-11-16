@@ -19,9 +19,13 @@ class App extends Component {
     super(props);
     this.state = {
       offStats: false,
-      offStatNames: null,
+      offStatNames: ['SCHOOL', 'TOTAL G', 'TOTAL W', 'TOTAL L', 'W-L %', 'SRS', 'SOS', 'CONF W', 'CONF L', 
+                    'HOME W', 'HOME L', 'AWAY W', 'AWAY L', 'PTS', 'FG', 'FGA', 'FG %', '3 PT', '3 PTA', '3 PT %',
+                    'FT', 'FTA', 'FT %', 'ORB', 'TRB', 'ASST', 'STL', 'BLK', 'TOV', 'PF'],
       defStats: false,
-      defStatNames: null,
+      defStatNames: ['SCHOOL', 'TOTAL G', 'TOTAL W', 'TOTAL L', 'W-L %', 'SRS', 'SOS', 'CONF W', 'CONF L','HOME W','HOME L',
+                    'AWAY W', 'AWAY L', 'PTS ALL', 'FG ALL', 'FGA ALL', 'FG % ALL', '3 PT ALL', '3 PTA ALL', '3 PT % ALL',
+                    'FT ALL', 'FTA ALL', 'ORB ALL', 'TRB ALL', 'ASST ALL', 'STL ALL', 'BLK ALL', 'OPP TOV', 'OPP PF'],
       offStatAverages: {},
       defStatAverages: {},
       currentUser: false
@@ -58,14 +62,6 @@ class App extends Component {
     let offStatAverages = this.getAverages(offStats);
     this.setState({ offStatAverages });
 
-    const offStatNamesArr = [];
-    for (const [key] of Object.entries(offStats[0])) {
-        if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
-          offStatNamesArr.push(key.toUpperCase())
-        }  
-    }
-    this.setState({ offStatNames: offStatNamesArr })
-
     let tempOffStats = [];
     let offStatArr = []
     for (let i = 0; i < offStats.length; i++) {
@@ -85,14 +81,6 @@ getDefStats = async () => {
   
   let defStatAverages = this.getAverages(defStats);
   this.setState({ defStatAverages });
-
-  const defStatNamesArr = [];
-  for (const [key] of Object.entries(defStats[0])) {
-      if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
-        defStatNamesArr.push(key.toUpperCase())
-      }  
-  }
-  this.setState({ defStatNames: defStatNamesArr })
 
   let tempDefStats = [];
   let defStatArr = []

@@ -51,6 +51,8 @@ class StatContainer extends Component {
                         <StatTable
                             stats={this.props.offStats}
                             statNames={this.props.offStatNames}
+                            getSchoolNames={this.props.getSchoolNames}
+                            schoolNames={this.props.schoolNames}
                         />
                     </div>
                 }
@@ -68,6 +70,8 @@ class StatContainer extends Component {
                         <StatTable
                             stats={this.props.defStats}
                             statNames={this.props.defStatNames}
+                            getSchoolNames={this.props.getSchoolNames}
+                            schoolNames={this.props.schoolNames}
                         />
                     </div>
                 }

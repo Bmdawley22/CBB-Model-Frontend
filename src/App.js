@@ -30,6 +30,7 @@ class App extends Component {
       defStatAverages: [],
       offAvgNames: [],
       defAvgNames: [],
+      schoolNames: [],
       currentUser: false
     }
   }
@@ -65,17 +66,18 @@ class App extends Component {
     this.setState({ offStatAverages });
 
     let tempOffStats = [];
-    let offStatArr = []
+    let offStatsArr = []
     for (let i = 0; i < offStats.length; i++) {
         for (const [key, value] of Object.entries(offStats[i])) {
             if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
               tempOffStats.push(value)
             }
         }
-        offStatArr[i] = tempOffStats;
+        offStatsArr[i] = tempOffStats;
         tempOffStats = [];
     }
-    this.setState({ offStats: offStatArr })
+    this.getSchoolNames(offStatsArr);
+    this.setState({ offStats: offStatsArr })
 }
 getDefStats = async () => {
   let defStats = await getAllDefStats();
@@ -147,6 +149,13 @@ getAvgNames = () => {
   }
   this.setState({ defAvgNames })
 }
+getSchoolNames = (stats) => {
+  let schoolNames = [];
+  for (let i = 0; i < stats.length; i++) {
+      schoolNames.push(stats[i][0].toLowerCase())
+  }
+  this.setState({ schoolNames })
+}
 // getDifferentials = () => {
   
 // }
@@ -155,6 +164,7 @@ getAvgNames = () => {
     this.getOffStats();
     this.getDefStats();
     this.getAvgNames();
+    
   }
   render () {
     return (
@@ -196,6 +206,8 @@ getAvgNames = () => {
                       offAvgNames={this.state.offAvgNames}
                       defAvgNames={this.state.defAvgNames}
                       getAvgNames={this.getAvgNames}
+                      getSchoolNames={this.getAvgNames}
+                      schoolNames={this.state.schoolNames}
                   />
             }}
           />

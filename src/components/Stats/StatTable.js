@@ -6,7 +6,6 @@ class StatTable extends Component {
         super(props);
         this.state = {
             search: '',
-            schoolNames: []
         }
 
     }
@@ -17,15 +16,9 @@ class StatTable extends Component {
           search: value
         })
     }
-    getSchoolNames = () => {
-        let schoolNames = [];
-        for (let i = 0; i < this.props.stats.length; i++) {
-            schoolNames.push(this.props.stats[i][0].toLowerCase())
-        }
-        this.setState({ schoolNames })
-    }
+    
     componentDidMount () {
-        this.getSchoolNames();
+        this.props.getSchoolNames();
     }
     render() {
         return (
@@ -59,7 +52,7 @@ class StatTable extends Component {
                                 </thead>
                                 <tbody>
                                     {this.props.stats.map((team, id) => (
-                                        (this.state.search.length === 0 || this.state.schoolNames[id].includes(this.state.search)) &&
+                                        (this.state.search.length === 0 || this.props.schoolNames[id].includes(this.state.search)) &&
                                             <tr key={id}>
                                                 {team.map((stat, id) => (
                                                     

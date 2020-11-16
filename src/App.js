@@ -99,7 +99,6 @@ getDefStats = async () => {
 
   let defDiffs = this.getDifferentials(defStats);
   this.setState({ defDiffs })
-  console.log(defDiffs)
 
   let tempDefStats = [];
   let defStatArr = []
@@ -207,7 +206,7 @@ getDifferentials = (stats, offOrDef) => {
   let diff = 0;
   let count = 0;
   let maxMin = this.state.maxMin;
-  for( let i = 0; i < 2; i++) {
+  for( let i = 0; i < stats.length; i++) {
     temp=[]
     count = 0;
     for (const [key, value] of Object.entries(stats[i])) {
@@ -216,7 +215,6 @@ getDifferentials = (stats, offOrDef) => {
             temp.push(value)
           }
           else if (key === 'srs') {
-            console.log(value, maxMin)
             diff = 100 * ((value - maxMin[1])/(maxMin[0] - maxMin[1])-0.5)
             temp.push(`${diff.toFixed(1)}%`)
             count++;
@@ -291,10 +289,12 @@ getDifferentials = (stats, offOrDef) => {
           />
           <Route path='/differentials' render={() => {
             return <StatDiffContainer
-                      offStats={this.state.offStats}
-                      offStatNames={this.state.offStatNames}
-                      defStats={this.state.defStats}
-                      defStatNames={this.state.defStatNames}
+                      offDiffs={this.state.offDiffs}
+                      offDiffNames={this.state.offAvgNames}
+                      defDiffs={this.state.defDiffs}
+                      defDiffNames={this.state.defAvgNames}
+                      getSchoolNames={this.getAvgNames}
+                      schoolNames={this.state.schoolNames}
                   />
             }}
           />

@@ -4,8 +4,6 @@ import { withRouter} from 'react-router-dom';
 import StatList from './StatList';
 import ModelStats from './ModelStats';
 
-import { getAllOffStats, getAllDefStats } from '../../services/api_helper';
-
 import '../../css/BuildModel.css'
 
 
@@ -14,61 +12,41 @@ class BuildModel extends Component {
         super(props);
 
         this.state = {
-            validNames: [],
+            validNames: this.props.validNames,
             modelStatNames: [],
-            modelStatWeights: []
         }
-    }
-    filterValidNames = async () => {
-
-        let offStats = await getAllOffStats();
-         offStats = offStats.data;
-
-         let defStats = await getAllDefStats();
-        defStats = defStats.data;
-
-        let excludeNames = ['id','createdAt','updatedAt','school', 'total_g','total_w', 'total_l',
-                            'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l']
-        let excludeNamesDef = ['w_l_perc', 'sos', 'srs',]
-        let validNames = [];
-        for (const [key] of Object.entries(offStats[0])) {
-            if(!excludeNames.includes(key)) {
-                validNames.push(key.toUpperCase());
-            }
-        }
-        for (const [key] of Object.entries(defStats[0])) {
-            if(!excludeNames.includes(key) && !excludeNamesDef.includes(key)) {
-                validNames.push(key.toUpperCase());
-            }
-        }
-        this.setState({ validNames })
     }
     handleAdd = (id) => {
         let modelStatNames = this.state.modelStatNames;
         modelStatNames.push(this.state.validNames[id])
         this.setState({ modelStatNames })
-    }
-    handleRemove = (id) => {
-        let temp = []
-        for( let i = 0; i < this.state.modelStatNames.length; i++) {
-            if(i !== id) {
-                temp.push(this.state.modelStatNames[i])
+        let validNames = [];
+        for (let i = 0; i < this.state.validNames.length; i++) {
+            if (i !== id) {
+                validNames.push(this.state.validNames[i])
             }
         }
-        this.setState({ modelStatNames: temp })
+        this.setState({ validNames })
+    }
+    handleRemove = (id) => {
+        let validNames = this.state.validNames;
+        validNames.push(this.state.modelStatNames[id])
+        this.setState({ validNames})
+        let modelStatNames = []
+        for( let i = 0; i < this.state.modelStatNames.length; i++) {
+            if(i !== id) {
+                modelStatNames.push(this.state.modelStatNames[i])
+            }
+        }
+        this.setState({ modelStatNames })
     }
     handleModelSubmit = (e) => {
         e.preventDefault();
-        console.log(e)
         let temp = [];
         for (let i = 0; i < e.target.length - 1; i = i + 2) {
             temp.push(e.target[i].valueAsNumber);
         }
         this.setState({ modelStatWeights: temp})
-    }
-    
-    componentDidMount () {
-        this.filterValidNames();
     }
     render () {
         return (
@@ -80,7 +58,7 @@ class BuildModel extends Component {
                 <ModelStats 
                     modelStatNames={this.state.modelStatNames}
                     handleRemove={this.handleRemove}
-                    handleModelSubmit={this.handleModelSubmit}
+                    handleModelSubmit={this.props.handleModelSubmit}
                 />
             </div>
         )

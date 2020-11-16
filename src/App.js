@@ -34,6 +34,7 @@ class App extends Component {
       offDiff: [],
       defDiffs: [],
       schoolNames: [],
+      validNames: [],
       currentUser: false
     }
   }
@@ -87,160 +88,184 @@ class App extends Component {
     }
     this.getSchoolNames(offStatsArr);
     this.setState({ offStats: offStatsArr })
-}
-getDefStats = async () => {
-  let defStats = await getAllDefStats();
-  defStats = defStats.data;
-  
-  let defStatAverages = this.getAverages(defStats);
-  this.setState({ defStatAverages });
+  } 
+  getDefStats = async () => {
+    let defStats = await getAllDefStats();
+    defStats = defStats.data;
+    
+    let defStatAverages = this.getAverages(defStats);
+    this.setState({ defStatAverages });
 
-  let maxMin = this.getMaxMin(defStats);
+    let maxMin = this.getMaxMin(defStats);
 
-  let defDiffs = this.getDifferentials(defStats);
-  this.setState({ defDiffs })
+    let defDiffs = this.getDifferentials(defStats);
+    this.setState({ defDiffs })
 
-  let tempDefStats = [];
-  let defStatArr = []
-  for (let i = 0; i < defStats.length; i++) {
-      for (const [key, value] of Object.entries(defStats[i])) {
-          if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
-            tempDefStats.push(value)
-          }
-      }
-      defStatArr[i] = tempDefStats;
-      tempDefStats = [];
-  }
-  this.setState({ defStats: defStatArr })
-
-}
-getAverages = (stats) => {
-  let sums = {};
-  let averagesObj = {};
-  let excludeNames = ['id','createdAt','updatedAt','school', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
-  let newVal = 0;
-  for( let i = 0; i < stats.length; i++) {
-    for (const [key, value] of Object.entries(stats[i])) {
-      if ( !excludeNames.includes(key) ) {
-        if (sums[`${key}`]) {
-          newVal = sums[`${key}`] + value;
-          sums[`${key}`] = newVal;
+    let tempDefStats = [];
+    let defStatArr = []
+    for (let i = 0; i < defStats.length; i++) {
+        for (const [key, value] of Object.entries(defStats[i])) {
+            if ( key !== 'id' && key !== 'createdAt' && key !== 'updatedAt') {
+              tempDefStats.push(value)
+            }
         }
-        else {
-          sums[`${key}`] = value;
-        }
-      }
+        defStatArr[i] = tempDefStats;
+        tempDefStats = [];
     }
-  }
-  for (const [key, value] of Object.entries(sums)) {
-    newVal = value/stats.length
-    averagesObj[`${key}`] = newVal.toFixed(2);
-  }
-  let averagesArr = [];
-  for (const [key, value] of Object.entries(averagesObj)) {
-    averagesArr.push(value);
-  }
-  return averagesArr;
-}
-getMaxMin = (stats) => {
-  let srs = [];
-  let sos = []
-  for( let i = 0; i < stats.length; i++) {
-    for (const [key, value] of Object.entries(stats[i])) {
-      if (key === 'srs') {
-        srs.push(value)
-      }
-      else if (key === 'sos') {
-        sos.push(value)
-      }
-    }
-  }
-  let srsMax = Math.max(...srs);
-  let sosMax = Math.max(...sos);
-  let srsMin  = Math.min(...srs);
-  let sosMin = Math.min(...sos);
-  return [srsMax, srsMin, sosMax, sosMin];
-}
-getAvgNames = () => {
-  
-  let excludeNames = ['SCHOOL', 'CONF W', 'CONF L', 'HOME W', 'HOME L','AWAY W','AWAY L'];
-  let offAvgNames = [];
-  
-  for (let i = 0; i < this.state.offStatNames.length; i++) {
-      if(!excludeNames.includes(this.state.offStatNames[i])) {
-          offAvgNames.push(this.state.offStatNames[i])
-      }
-  }
-  this.setState({ offAvgNames })
+    this.setState({ defStats: defStatArr })
 
-  let defAvgNames = [];
-  
-  for (let i = 0; i < this.state.defStatNames.length; i++) {
-      if(!excludeNames.includes(this.state.defStatNames[i])) {
-          defAvgNames.push(this.state.defStatNames[i])
-      }
   }
-  this.setState({ defAvgNames })
-}
-getSchoolNames = (stats) => {
-  let schoolNames = [];
-  for (let i = 0; i < stats.length; i++) {
-      schoolNames.push(stats[i][0].toLowerCase())
-  }
-  this.setState({ schoolNames })
-}
-getDifferentials = (stats, offOrDef) => {
-  let averages = []
-  let excludeNames = []
-  if( offOrDef === 'o') {
-    averages = this.state.offStatAverages
-    //excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
-  }
-  else {
-    averages = this.state.defStatAverages
-    //excludeNames = ['id','createdAt','updatedAt', 'total_g', 'total_w', 'total_l','w_l_perc','srs','sos','conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
-  }
-  excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
-  let diffData = [];
-  let temp = [];
-  let diff = 0;
-  let count = 0;
-  let maxMin = this.state.maxMin;
-  for( let i = 0; i < stats.length; i++) {
-    temp=[]
-    count = 0;
-    for (const [key, value] of Object.entries(stats[i])) {
-      if ( !excludeNames.includes(key) ) {
-          if (key === 'school') {
-            temp.push(value)
-          }
-          else if (key === 'srs') {
-            diff = 100 * ((value - maxMin[1])/(maxMin[0] - maxMin[1])-0.5)
-            temp.push(`${diff.toFixed(1)}%`)
-            count++;
-          }
-          else if (key === 'sos') {
-            diff = 100 * ((value - maxMin[3])/(maxMin[2] - maxMin[3])-0.5)
-            temp.push(`${diff.toFixed(1)}%`)
-            count++;
+  getAverages = (stats) => {
+    let sums = {};
+    let averagesObj = {};
+    let excludeNames = ['id','createdAt','updatedAt','school', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+    let newVal = 0;
+    for( let i = 0; i < stats.length; i++) {
+      for (const [key, value] of Object.entries(stats[i])) {
+        if ( !excludeNames.includes(key) ) {
+          if (sums[`${key}`]) {
+            newVal = sums[`${key}`] + value;
+            sums[`${key}`] = newVal;
           }
           else {
-            diff = 100 * ((value - averages[count])/(averages[count]));
-            temp.push(`${diff.toFixed(1)}%`)
-            count++;
+            sums[`${key}`] = value;
           }
+        }
       }
     }
-    diffData.push(temp);
+    for (const [key, value] of Object.entries(sums)) {
+      newVal = value/stats.length
+      averagesObj[`${key}`] = newVal.toFixed(2);
+    }
+    let averagesArr = [];
+    for (const [key, value] of Object.entries(averagesObj)) {
+      averagesArr.push(value);
+    }
+    return averagesArr;
   }
-  return diffData;
-}
+  getMaxMin = (stats) => {
+    let srs = [];
+    let sos = []
+    for( let i = 0; i < stats.length; i++) {
+      for (const [key, value] of Object.entries(stats[i])) {
+        if (key === 'srs') {
+          srs.push(value)
+        }
+        else if (key === 'sos') {
+          sos.push(value)
+        }
+      }
+    }
+    let srsMax = Math.max(...srs);
+    let sosMax = Math.max(...sos);
+    let srsMin  = Math.min(...srs);
+    let sosMin = Math.min(...sos);
+    return [srsMax, srsMin, sosMax, sosMin];
+  }
+  getAvgNames = () => {
+    
+    let excludeNames = ['SCHOOL', 'CONF W', 'CONF L', 'HOME W', 'HOME L','AWAY W','AWAY L'];
+    let offAvgNames = [];
+    
+    for (let i = 0; i < this.state.offStatNames.length; i++) {
+        if(!excludeNames.includes(this.state.offStatNames[i])) {
+            offAvgNames.push(this.state.offStatNames[i])
+        }
+    }
+    this.setState({ offAvgNames })
+
+    let defAvgNames = [];
+    
+    for (let i = 0; i < this.state.defStatNames.length; i++) {
+        if(!excludeNames.includes(this.state.defStatNames[i])) {
+            defAvgNames.push(this.state.defStatNames[i])
+        }
+    }
+    this.setState({ defAvgNames })
+    this.getValidModelNames(offAvgNames, defAvgNames)
+  }
+  getSchoolNames = (stats) => {
+    let schoolNames = [];
+    for (let i = 0; i < stats.length; i++) {
+        schoolNames.push(stats[i][0].toLowerCase())
+    }
+    this.setState({ schoolNames })
+  }
+  getDifferentials = (stats, offOrDef) => {
+    let averages = []
+    let excludeNames = []
+    if( offOrDef === 'o') {
+      averages = this.state.offStatAverages
+      //excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+    }
+    else {
+      averages = this.state.defStatAverages
+      //excludeNames = ['id','createdAt','updatedAt', 'total_g', 'total_w', 'total_l','w_l_perc','srs','sos','conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+    }
+    excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+    let diffData = [];
+    let temp = [];
+    let diff = 0;
+    let count = 0;
+    let maxMin = this.state.maxMin;
+    for( let i = 0; i < stats.length; i++) {
+      temp=[]
+      count = 0;
+      for (const [key, value] of Object.entries(stats[i])) {
+        if ( !excludeNames.includes(key) ) {
+            if (key === 'school') {
+              temp.push(value)
+            }
+            else if (key === 'srs') {
+              diff = 100 * ((value - maxMin[1])/(maxMin[0] - maxMin[1])-0.5)
+              temp.push(`${diff.toFixed(1)}%`)
+              count++;
+            }
+            else if (key === 'sos') {
+              diff = 100 * ((value - maxMin[3])/(maxMin[2] - maxMin[3])-0.5)
+              temp.push(`${diff.toFixed(1)}%`)
+              count++;
+            }
+            else {
+              diff = 100 * ((value - averages[count])/(averages[count]));
+              temp.push(`${diff.toFixed(1)}%`)
+              count++;
+            }
+        }
+      }
+      diffData.push(temp);
+    }
+    return diffData;
+  }
+  getValidModelNames = (offAvgNames, defAvgNames) => {
+    let validNames = offAvgNames;
+    if (validNames[0] === 'TOTAL G') {
+        validNames.shift();
+    }
+    
+    for (let i = 0; i < defAvgNames.length; i++) {
+        if( !validNames.includes(defAvgNames[i])) {
+            validNames.push(defAvgNames[i])
+        }
+    }
+    this.setState({ validNames })
+  }
+  handleModelSubmit = (e, modelStatNames) => {
+    e.preventDefault();
+    console.log(e, modelStatNames)
+    
+    
+    let temp = [];
+    for (let i = 0; i < e.target.length - 1; i = i + 2) {
+        temp.push(e.target[i].valueAsNumber);
+    }
+    console.log(temp)
+  }
   componentDidMount() {
     this.verifyUser();
     this.getOffStats();
     this.getDefStats();
     this.getAvgNames();
-    
   }
   render () {
     return (
@@ -268,7 +293,13 @@ getDifferentials = (stats, offOrDef) => {
             }}
           />
           <Route path='/build-model' render={() => {
-            return <BuildModel />
+            return <BuildModel 
+                      offAvgNames={this.state.offAvgNames}
+                      defAvgNames={this.state.defAvgNames}
+                      getValidModelNames={this.getValidModelNames}
+                      validNames={this.state.validNames}
+                      handleModelSubmit={this.handleModelSubmit}
+                  />
             }}
           />
           <Route path='/stats' render={() => {

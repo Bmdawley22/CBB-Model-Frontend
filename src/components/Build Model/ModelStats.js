@@ -8,7 +8,7 @@ const ModelStats = (props) => {
             <h2>Model Stats</h2>
             {props.modelStatNames.length > 0 &&
                 <div>
-                    <form id='added-stat-wrapper' onSubmit={(e) => props.handleModelSubmit(e)}>  
+                    <form id='added-stat-wrapper' onSubmit={(e) => props.handleModelSubmit(e,props.modelStatNames)}>  
                         {props.modelStatNames.map((modelStatName, id) => (
                             <div className='added-stat' key={id}>
                                 <StatWeight statName={modelStatName} />

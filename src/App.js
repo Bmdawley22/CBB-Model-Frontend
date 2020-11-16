@@ -7,7 +7,7 @@ import Home from './components/Home';
 import SignupForm from './components/SignupForm';
 import Profile from './components/Profile';
 
-import { signup, login, verifyUser, getAllOffStats, getAllDefStats } from './services/api_helper';
+import { signup, login, verifyUser, getAllOffStats, getAllDefStats, getUserModels, saveModel } from './services/api_helper';
 import LoginForm from './components/LoginForm';
 import BuildModel from './components/Build Model/BuildModel';
 import StatContainer from './components/Stats/StatContainer';
@@ -35,7 +35,8 @@ class App extends Component {
       defDiffs: [],
       schoolNames: [],
       validNames: [],
-      currentUser: false
+      currentUser: false,
+      currUserModels: {}
     }
   }
   handleSignup = async (e, newUserData) => {
@@ -60,6 +61,29 @@ class App extends Component {
     const currentUser = await verifyUser();
     if (currentUser) {
       this.setState({ currentUser });
+    }
+    this.getCurrUserModels(currentUser.id)
+  }
+  getCurrUserModels = async (id) => {
+ 
+    const currUserModels = await getUserModels(id);
+
+    if(id !== 0){
+      if (currUserModels) {
+        this.setState({ currUserModels })
+        return
+      }
+    }
+    else {
+      if (currUserModels) {
+        let modelTableNames = []
+        for (const [key, value] of Object.entries(currUserModels[0])) {
+            if ( key !== 'id' && key !== 'user_id' && key !== 'createdAt' && key !== 'updatedAt') {
+              modelTableNames.push(key)
+            }
+        }
+        return modelTableNames;
+      }
     }
   }
   getOffStats = async () => {
@@ -250,30 +274,36 @@ class App extends Component {
     }
     this.setState({ validNames })
   }
-  handleModelSubmit = (e, modelStatNames) => {
+  createModel = async (modelObj) => {
+    const createModel = await saveModel(modelObj);
+  }
+  handleModelSubmit = async (e, modelStatNames) => {
     e.preventDefault();
-    
+   
+    const modelTableNames = await this.getCurrUserModels(0);
+    console.log(modelTableNames)
+
+    //gets entered in values
     let modelValues = [];
     for (let i = 0; i < e.target.length - 1; i = i + 2) {
       modelValues.push(e.target[i].valueAsNumber);
     }
+
     let userModel = {}
     userModel.user_id = this.state.currentUser.id;
     for(let i = 0; i < this.state.validNames.length; i++) {
-      console.log(this.state.validNames[i])
       if ( modelStatNames.includes(this.state.validNames[i]) ) {
         for (let j = 0; j < modelStatNames.length; j++) {
           if (this.state.validNames[i] ===  modelStatNames[j]) {
-            userModel[`${this.state.validNames[i]}`] = modelValues[j];
+            userModel[`${modelTableNames[i]}`] = modelValues[j];
           }
         }
       }
       else {
-        userModel[`${this.state.validNames[i]}`] = 0;
+        userModel[`${modelTableNames[i]}`] = 0;
       }
     }
-    console.log(userModel)
-    this.setState({ userModel })
+    this.createModel(userModel)
   }
   componentDidMount() {
     this.verifyUser();

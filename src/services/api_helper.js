@@ -40,3 +40,11 @@ export const getAllDefStats = async () => {
   const resp = await api.get('/stats/def-stats');
   return resp;
 }
+export const getUserModels = async (id) => {
+  const resp = await api.get(`models/${id}`);
+  return resp.data;
+}
+export const saveModel = async (modelData) => {
+  const resp = await api.post('/models/saveModel', modelData);
+  return resp.data;
+}

@@ -30,6 +30,7 @@ class App extends Component {
       defStatAverages: [],
       offAvgNames: [],
       defAvgNames: [],
+      maxMin: [],
       schoolNames: [],
       currentUser: false
     }
@@ -64,6 +65,9 @@ class App extends Component {
 
     let offStatAverages = this.getAverages(offStats);
     this.setState({ offStatAverages });
+    
+    let maxMin = this.getMaxMin(offStats);
+    this.setState({ maxMin })
 
     let offDiffs = this.getDifferentials(offStats,'o');
 
@@ -130,6 +134,25 @@ getAverages = (stats) => {
   }
   return averagesArr;
 }
+getMaxMin = (stats) => {
+  let srs = [];
+  let sos = []
+  for( let i = 0; i < stats.length; i++) {
+    for (const [key, value] of Object.entries(stats[i])) {
+      if (key === 'srs') {
+        srs.push(value)
+      }
+      else if (key === 'sos') {
+        sos.push(value)
+      }
+    }
+  }
+  let srsMax = Math.max(...srs);
+  let sosMax = Math.max(...sos);
+  let srsMin  = Math.min(...srs);
+  let sosMin = Math.min(...sos);
+  return [srsMax, srsMin, sosMax, sosMin];
+}
 getAvgNames = () => {
   
   let excludeNames = ['SCHOOL', 'CONF W', 'CONF L', 'HOME W', 'HOME L','AWAY W','AWAY L'];
@@ -167,13 +190,13 @@ getDifferentials = (stats, offOrDef) => {
   else {
     averages = this.state.defStatAverages
   }
-  console.log(averages)
   let excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
   let diffData = [];
   let temp = [];
   let diff = 0;
   let count = 0;
-  for( let i = 0; i < stats.length; i++) {
+  let maxMin = this.state.maxMin;
+  for( let i = 0; i < 2; i++) {
     temp=[]
     count = 0;
     for (const [key, value] of Object.entries(stats[i])) {
@@ -181,8 +204,18 @@ getDifferentials = (stats, offOrDef) => {
           if (key === 'school') {
             temp.push(value)
           }
+          else if (key === 'srs') {
+            diff = 100 * ((value - maxMin[1])/(maxMin[0] - maxMin[1]))
+            temp.push(`${diff.toFixed(1)}%`)
+            count++;
+          }
+          else if (key === 'sos') {
+            diff = 100 * ((value - maxMin[3])/(maxMin[2] - maxMin[3])-0.5)
+            temp.push(`${diff.toFixed(1)}%`)
+            count++;
+          }
           else {
-            diff = 100 * (value - averages[count])/(averages[count]);
+            diff = 100 * ((value - averages[count])/(averages[count])-0.5);
             temp.push(`${diff.toFixed(1)}%`)
             count++;
           }
@@ -190,7 +223,7 @@ getDifferentials = (stats, offOrDef) => {
     }
     diffData.push(temp);
   }
-  console.log(diffData)
+  return diffData;
 }
   componentDidMount() {
     this.verifyUser();

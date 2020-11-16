@@ -43,6 +43,24 @@ form h4 {
     align-items: center;
     margin-top: 3vh;
 }
+#averages {
+    display: flex;
+    justify-content: left;
+    overflow-x: auto;
+    margin: 0px 10vw;
+    border: 5px solid blue;
+}
+.average {
+    padding: 0px 8px;
+    border: 2px black solid;
+}
+.average h4 {
+    border-bottom: 1px black solid;
+}
+.average h4, .average p {
+    font-size: 12px;
+    text-align: center;
+}
 #table-wrapper {
     overflow-x: auto;
     width: 80vw;

@@ -28,19 +28,20 @@ class StatContainer extends Component {
         let offStatNames = [];
         for (const [key, value] of Object.entries(this.props.offStatAverages)) {
             offStatAverages.push(value);
-            offStatNames.push(key);
+            offStatNames.push(key.toUpperCase());
         }
         this.setState({ offStatAverages, offStatNames})
 
         let defStatAverages = [];
         let defStatNames = [];
-        for (const [key, value] of Object.entries(this.props.offStatAverages)) {
+        for (const [key, value] of Object.entries(this.props.defStatAverages)) {
             defStatAverages.push(value);
-            defStatNames.push(key);
+            defStatNames.push(key.toUpperCase());
         }
         this.setState({ defStatAverages, defStatNames})
     }
     render () {
+        console.log(this.state)
         return (
             <div id='stat-container'>
                 <div id='buttons'>
@@ -53,18 +54,14 @@ class StatContainer extends Component {
                         id={this.state.statsToShow === 'defense' && 'active' }
                     >Defensive Stats</button>
                 </div>
-                <div>
-                    <StatAverages 
-                        offStatAverages={this.state.offStatAverages}
-                        offStatNames={this.state.offStatNames}
-                        defStatAverages={this.state.defStatAverages}
-                        defStatNames={this.state.defStatNames}
-                        statsToShow={this.state.statsToShow}
-                    />
-                </div>
+                    
                 {this.state.statsToShow === 'offense' &&
                     <div>
                         <h2>Offensive Per Game Stats</h2>
+                        <StatAverages 
+                            averages={this.state.offStatAverages}
+                            names={this.state.offStatNames}
+                        />
                         <StatTable
                             stats={this.props.offStats}
                             statNames={this.props.offStatNames}
@@ -74,6 +71,10 @@ class StatContainer extends Component {
                 {this.state.statsToShow === 'defense' &&
                     <div>
                         <h2>Defensive Per Game Stats</h2>
+                        <StatAverages 
+                            averages={this.state.defStatAverages}
+                            names={this.state.defStatNames}
+                        />
                         <StatTable
                             stats={this.props.defStats}
                             statNames={this.props.defStatNames}

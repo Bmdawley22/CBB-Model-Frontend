@@ -4,7 +4,6 @@ import { Route, Switch, withRouter} from 'react-router-dom';
 import Header from './components/Header';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
-import StatTable from './components/Stats/StatTable';
 import SignupForm from './components/SignupForm';
 import Profile from './components/Profile';
 
@@ -129,7 +128,7 @@ getAverages = (stats) => {
   }
   for (const [key, value] of Object.entries(sums)) {
     newVal = value/stats.length
-    averages[`${key}`] = newVal;
+    averages[`${key}`] = newVal.toFixed(2);
   }
   return averages;
 }
@@ -137,9 +136,9 @@ getAverages = (stats) => {
     this.verifyUser();
     this.getOffStats();
     this.getDefStats();
+
   }
   render () {
-    
     return (
       <div>
         <Header 

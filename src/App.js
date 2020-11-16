@@ -31,6 +31,8 @@ class App extends Component {
       offAvgNames: [],
       defAvgNames: [],
       maxMin: [],
+      offDiff: [],
+      defDiffs: [],
       schoolNames: [],
       currentUser: false
     }
@@ -70,6 +72,7 @@ class App extends Component {
     this.setState({ maxMin })
 
     let offDiffs = this.getDifferentials(offStats,'o');
+    this.setState({ offDiffs })
 
     let tempOffStats = [];
     let offStatsArr = []
@@ -91,6 +94,12 @@ getDefStats = async () => {
   
   let defStatAverages = this.getAverages(defStats);
   this.setState({ defStatAverages });
+
+  let maxMin = this.getMaxMin(defStats);
+
+  let defDiffs = this.getDifferentials(defStats);
+  this.setState({ defDiffs })
+  console.log(defDiffs)
 
   let tempDefStats = [];
   let defStatArr = []
@@ -183,14 +192,16 @@ getSchoolNames = (stats) => {
 }
 getDifferentials = (stats, offOrDef) => {
   let averages = []
- 
+  let excludeNames = []
   if( offOrDef === 'o') {
     averages = this.state.offStatAverages
+    //excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
   }
   else {
     averages = this.state.defStatAverages
+    //excludeNames = ['id','createdAt','updatedAt', 'total_g', 'total_w', 'total_l','w_l_perc','srs','sos','conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
   }
-  let excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+  excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
   let diffData = [];
   let temp = [];
   let diff = 0;
@@ -205,7 +216,8 @@ getDifferentials = (stats, offOrDef) => {
             temp.push(value)
           }
           else if (key === 'srs') {
-            diff = 100 * ((value - maxMin[1])/(maxMin[0] - maxMin[1]))
+            console.log(value, maxMin)
+            diff = 100 * ((value - maxMin[1])/(maxMin[0] - maxMin[1])-0.5)
             temp.push(`${diff.toFixed(1)}%`)
             count++;
           }
@@ -215,7 +227,7 @@ getDifferentials = (stats, offOrDef) => {
             count++;
           }
           else {
-            diff = 100 * ((value - averages[count])/(averages[count])-0.5);
+            diff = 100 * ((value - averages[count])/(averages[count]));
             temp.push(`${diff.toFixed(1)}%`)
             count++;
           }

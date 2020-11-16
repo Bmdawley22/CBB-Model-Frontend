@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import '../../css/Stats.css';
 
+import StatAverages from './StatAverages';
 import StatTable from './StatTable';
 
 class StatDiffContainer extends Component {
@@ -10,6 +11,8 @@ class StatDiffContainer extends Component {
         
         this.state = {
             statsToShow: 'offense',
+            offDiffName: [],
+            defDiffName: []
         }
     }
     changeToOffense = () => {
@@ -17,6 +20,9 @@ class StatDiffContainer extends Component {
     }
     changeToDefense = () => {
         this.setState({ statsToShow: 'defense'})
+    }
+    componentDidMount() {
+
     }
     render () {
         return (
@@ -31,27 +37,9 @@ class StatDiffContainer extends Component {
                         id={this.state.statsToShow === 'defense' && 'active' }
                     >Defensive Stats</button>
                 </div>
-                {this.state.statsToShow === 'offense' &&
-                    <div>
-                        <h2>Offensive Per Game Stats</h2>
-                        <StatTable
-                            stats={this.props.offStats}
-                            statNames={this.props.offStatNames}
-                        />
-                    </div>
-                }
-                {this.state.statsToShow === 'defense' &&
-                    <div>
-                        <h2>Defensive Per Game Stats</h2>
-                        <StatTable
-                            stats={this.props.defStats}
-                            statNames={this.props.defStatNames}
-                        />
-                    </div>
-                }
-            </div>
+            </div>     
         )
     }
 }
 
-export default StatDiffContainer;
+export default StatDiffContainer

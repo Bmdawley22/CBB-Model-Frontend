@@ -65,6 +65,8 @@ class App extends Component {
     let offStatAverages = this.getAverages(offStats);
     this.setState({ offStatAverages });
 
+    let offDiffs = this.getDifferentials(offStats,'o');
+
     let tempOffStats = [];
     let offStatsArr = []
     for (let i = 0; i < offStats.length; i++) {
@@ -156,9 +158,40 @@ getSchoolNames = (stats) => {
   }
   this.setState({ schoolNames })
 }
-// getDifferentials = () => {
-  
-// }
+getDifferentials = (stats, offOrDef) => {
+  let averages = []
+ 
+  if( offOrDef === 'o') {
+    averages = this.state.offStatAverages
+  }
+  else {
+    averages = this.state.defStatAverages
+  }
+  console.log(averages)
+  let excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+  let diffData = [];
+  let temp = [];
+  let diff = 0;
+  let count = 0;
+  for( let i = 0; i < stats.length; i++) {
+    temp=[]
+    count = 0;
+    for (const [key, value] of Object.entries(stats[i])) {
+      if ( !excludeNames.includes(key) ) {
+          if (key === 'school') {
+            temp.push(value)
+          }
+          else {
+            diff = 100 * (value - averages[count])/(averages[count]);
+            temp.push(`${diff.toFixed(1)}%`)
+            count++;
+          }
+      }
+    }
+    diffData.push(temp);
+  }
+  console.log(diffData)
+}
   componentDidMount() {
     this.verifyUser();
     this.getOffStats();

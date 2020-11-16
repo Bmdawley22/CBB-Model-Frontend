@@ -19,10 +19,6 @@ class StatContainer extends Component {
     changeToDefense = () => {
         this.setState({ statsToShow: 'defense'})
     }
-    
-    componentDidMount() {
-        //this.formatAvg();
-    }
     render () {
         return (
             <div id='stat-container'>

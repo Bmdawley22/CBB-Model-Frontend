@@ -25,7 +25,7 @@ class ModelsContainer extends Component {
         const currModels = await getUserModels(id)
         if (currModels) {
             this.setState({ currModels })
-            this.getVals(currModels[0])
+            this.getVals(currModels[this.props.selectedModelId])
         }
     }
     
@@ -44,6 +44,7 @@ class ModelsContainer extends Component {
         e.preventDefault();
         let modelId = e.target.value-1;
         this.getVals(this.state.currModels[modelId])
+        this.props.getSelectedModel(modelId);
     }
     componentDidMount () {
         this.getUserId();
@@ -57,7 +58,10 @@ class ModelsContainer extends Component {
                         <h3>Select Model:</h3>
                         <select id='model-select'onChange={(e) => this.selectModel(e)}>
                             {this.state.currModels.map((model, id) => (
-                                <option  key={id} value={id+1}>{id+1}</option>
+                                id === this.props.selectedModelId ? 
+                                    <option  selected key={id} value={id+1}>{id+1}</option>
+                                :
+                                    <option  key={id} value={id+1}>{id+1}</option>
                             ))}
                         </select>
                     </div>

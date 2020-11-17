@@ -32,12 +32,17 @@ class App extends Component {
       defStatAverages: [],
       offAvgNames: [],
       defAvgNames: [],
+      avgScore: null,
       maxMin: [],
       defDiffs: [],
       schoolNames: [],
       validNames: [],
       currentUser: false,
-      currUserModels: {}
+      currUserModels: {},
+      selectedModelId: 0,
+      awayScore: null,
+      homeScore: null,
+      modelIds: []
     }
   }
   handleSignup = async (e, newUserData) => {
@@ -165,6 +170,9 @@ class App extends Component {
     for (const [key, value] of Object.entries(sums)) {
       newVal = value/stats.length
       averagesObj[`${key}`] = newVal.toFixed(2);
+      if (key === 'pts') {
+        this.setState({ avgScore: parseFloat(averagesObj[`${key}`]) })
+      }
     }
     let averagesArr = [];
     for (const [key, value] of Object.entries(averagesObj)) {
@@ -330,6 +338,10 @@ class App extends Component {
     }
     return validNames;
   } 
+  getSelectedModel = (id) => {
+    let selectedModelId = id;
+    this.setState({ selectedModelId })
+  }
   prepareDiffs = (id1, id2) => {
     if (id1 !== null && id2 !== null) {
       let offDiffNames = this.state.offAvgNames;
@@ -338,7 +350,6 @@ class App extends Component {
       let defDiffs1 = this.state.defDiffs[id1];
       let offDiffs2 = this.state.offDiffs[id2];
       let defDiffs2 = this.state.defDiffs[id2];
-      console.log( offDiffNames,defDiffNames, offDiffs1, defDiffs1, offDiffs2, defDiffs2)
       
       let awayPtsArr = [];
       let homePtsArr = [];
@@ -355,7 +366,6 @@ class App extends Component {
           let val2 = parseFloat(defDiffs2[i].slice(0, -1));
           let val3 = parseFloat(offDiffs2[i].slice(0, -1));
           let val4 = parseFloat(defDiffs1[i].slice(0, -1));
-          
           awayPtsArr.push(parseFloat((val1-val2).toFixed(1)));
           homePtsArr.push(parseFloat((val3 - val4).toFixed(1)));
         }
@@ -364,14 +374,44 @@ class App extends Component {
           let val2 = parseFloat(defDiffs2[i-1].slice(0, -1));
           let val3 = parseFloat(offDiffs2[i].slice(0, -1));
           let val4 = parseFloat(defDiffs1[i-1].slice(0, -1));
-          console.log(val1, val2)
-          console.log(val3, val4)
           awayPtsArr.push(parseFloat((val1-val2).toFixed(1)));
           homePtsArr.push(parseFloat((val3 - val4).toFixed(1)));
         }
       }
-      console.log(awayPtsArr, homePtsArr)
+      this.score(offDiffs1[0], offDiffs2[0], awayPtsArr, homePtsArr)
     }
+  }
+  score = async (away, home, awayArr, homeArr) => {
+    console.log( away, home, awayArr, homeArr )
+    console.log(this.state.currUserModels[this.state.selectedModelId])
+    const model = this.state.currUserModels[this.state.selectedModelId]
+    const modelStatNames = await this.getCurrUserModels(0)
+    console.log(modelStatNames)
+
+    let awayPtsAdded = [];
+    let homePtsAdded = [];
+    let weight = 0;
+    let awayScore = 0;
+    let homeScore = 0;
+    let modelIds = []
+
+    for (let i = 0; i < awayArr.length; i++) {
+      weight = model[`${modelStatNames[i]}`]
+      if (weight !== 0) {
+        awayPtsAdded.push(parseFloat((weight * 0.01 * awayArr[i]).toFixed(2)));
+        homePtsAdded.push(parseFloat((weight * 0.01 * homeArr[i]).toFixed(2)))
+        modelIds.push(i)
+      }
+      else {
+        awayPtsAdded.push(0)
+        homePtsAdded.push(0)
+      }
+      awayScore = awayScore + awayPtsAdded[i];
+      homeScore = homeScore + homePtsAdded[i];
+    }
+    awayScore = parseFloat(awayScore.toFixed(2)) + this.state.avgScore;
+    homeScore = parseFloat(homeScore.toFixed(2)) + this.state.avgScore;
+    this.setState({ awayScore, homeScore, modelIds})
   }
   componentDidMount() {
     this.verifyUser();
@@ -417,6 +457,8 @@ class App extends Component {
                       user={this.state.currentUser}
                       verifyUser={this.verifyUser}
                       validNames={this.state.validNames}
+                      selectedModelId={this.state.selectedModelId}
+                      getSelectedModel={this.getSelectedModel}
                   />
             }}
           />
@@ -451,6 +493,7 @@ class App extends Component {
             return <GameContainer
                       schoolNames={this.state.schoolNames}
                       prepareDiffs={this.prepareDiffs}
+                      selectedModelId={this.state.selectedModelId}
                   />
             }}
           />

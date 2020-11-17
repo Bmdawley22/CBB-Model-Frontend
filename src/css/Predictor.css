@@ -1,0 +1,12 @@
+#away-input, #home-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20vw;
+}
+#away-input h4, #home-input h4 {
+    width: 30%;
+}
+#away-input input, #home-input input {
+    width: 60%;
+}

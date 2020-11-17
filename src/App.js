@@ -13,6 +13,7 @@ import BuildModel from './components/Build Model/BuildModel';
 import StatContainer from './components/Stats/StatContainer';
 import StatDiffContainer from './components/Stats/StatDiffContainer';
 import ModelsContainer from './components/Your Models/ModelsContainer';
+import GameContainer from './components/Game Predictor/GameContainer';
 
 
 class App extends Component {
@@ -32,7 +33,6 @@ class App extends Component {
       offAvgNames: [],
       defAvgNames: [],
       maxMin: [],
-      offDiff: [],
       defDiffs: [],
       schoolNames: [],
       validNames: [],
@@ -217,6 +217,7 @@ class App extends Component {
         schoolNames.push(stats[i][0].toLowerCase())
     }
     this.setState({ schoolNames })
+    return schoolNames
   }
   getDifferentials = (stats, offOrDef) => {
     let averages = []
@@ -321,6 +322,31 @@ class App extends Component {
     }
     return validNames;
   } 
+  prepareDiffs = (id1, id2) => {
+    if (id1 !== null && id2 !== null) {
+      let offDiffNames = this.state.offAvgNames;
+      let defDiffNames = this.state.defAvgNames;
+      let offDiffs1 = this.state.offDiffs[id1];
+      let defDiffs1 = this.state.defDiffs[id1];
+      let offDiffs2 = this.state.offDiffs[id2];
+      let defDiffs2 = this.state.defDiffs[id2];
+      console.log( offDiffNames,defDiffNames, offDiffs1, defDiffs1, offDiffs2, defDiffs2)
+      
+      let awayPtsArr = [];
+      let homePtsArr = [];
+
+      for (let i = 2; i < offDiffs1.length; i++) {
+        if (i < 6) {
+          let val1 = parseInt(offDiffs1[i].slice(0, -1));
+          let val2 = parseInt(offDiffs2[i].slice(0, -1));
+          console.log(typeof(val1))
+          awayPtsArr.push(val1-val2)
+          homePtsArr.push(val2 - val1)
+        }
+      }
+      console.log(awayPtsArr, homePtsArr)
+    }
+  }
   componentDidMount() {
     this.verifyUser();
     this.getOffStats();
@@ -392,6 +418,13 @@ class App extends Component {
                       defDiffNames={this.state.defAvgNames}
                       getSchoolNames={this.getAvgNames}
                       schoolNames={this.state.schoolNames}
+                  />
+            }}
+          />
+          <Route path='/predictor' render={() => {
+            return <GameContainer
+                      schoolNames={this.state.schoolNames}
+                      prepareDiffs={this.prepareDiffs}
                   />
             }}
           />

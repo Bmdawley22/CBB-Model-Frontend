@@ -58,6 +58,7 @@ class App extends Component {
     this.setState({ currentUser: null });
     this.props.history.push('/login');
   }
+  //verifies user, if verified gets all of users models
   verifyUser = async () => {
     const currentUser = await verifyUser();
     if (currentUser) {
@@ -65,6 +66,8 @@ class App extends Component {
     }
     this.getCurrUserModels(currentUser.id)
   }
+  //gets user models based on user id passed in
+  //if (id = 0) is passed in, only the "user_models" table names will be returned 
   getCurrUserModels = async (id) => {
  
     const currUserModels = await getUserModels(id);
@@ -205,7 +208,8 @@ class App extends Component {
         }
     }
     this.setState({ defAvgNames })
-    this.getValidModelNames(offAvgNames, defAvgNames)
+    this.getValidModelNames(offAvgNames)
+    return offAvgNames;
   }
   getSchoolNames = (stats) => {
     let schoolNames = [];
@@ -260,19 +264,6 @@ class App extends Component {
     }
     return diffData;
   }
-  getValidModelNames = (offAvgNames, defAvgNames) => {
-    let validNames = offAvgNames;
-    if (validNames[0] === 'TOTAL G') {
-        validNames.shift();
-    }
-    
-    for (let i = 0; i < defAvgNames.length; i++) {
-        if( !validNames.includes(defAvgNames[i]) && defAvgNames[i] !== 'TOTAL G') {
-            validNames.push(defAvgNames[i])
-        }
-    }
-    this.setState({ validNames })
-  }
   createModel = async (modelObj) => {
     await saveModel(modelObj);
   }
@@ -280,19 +271,25 @@ class App extends Component {
     e.preventDefault();
    
     const modelTableNames = await this.getCurrUserModels(0);
-
+   
+    
     //gets model weights from user
     let modelValues = [];
-    for (let i = 0; i < e.target.length - 1; i = i + 2) {
-      modelValues.push(e.target[i].valueAsNumber);
+    for (let i = 1; i < e.target.length; i++) {
+      if(e.target[i].className === 'model-input') {
+        modelValues.push(e.target[i].valueAsNumber);
+      }
     }
+    
+    const validNames = this.state.offAvgNames;
+    validNames.shift()
 
     let userModel = {}
     userModel.user_id = this.state.currentUser.id;
-    for(let i = 0; i < this.state.validNames.length; i++) {
-      if ( modelStatNames.includes(this.state.validNames[i]) ) {
+    for(let i = 0; i < validNames.length; i++) {
+      if ( modelStatNames.includes(validNames[i]) ) {
         for (let j = 0; j < modelStatNames.length; j++) {
-          if (this.state.validNames[i] ===  modelStatNames[j]) {
+          if (validNames[i] ===  modelStatNames[j]) {
             userModel[`${modelTableNames[i]}`] = modelValues[j];
           }
         }
@@ -304,7 +301,26 @@ class App extends Component {
     this.createModel(userModel)
     this.props.history.push('/model')
   }
-
+  getValidModelNames = (offAvgNames) => {
+    let validNames = [];
+    if( offAvgNames ) {
+        for (let i = 0; i < offAvgNames.length; i++) {
+            if (offAvgNames[i] !== 'TOTAL G') {
+                validNames.push(offAvgNames[i])
+            }
+        }
+        this.setState({ validNames })
+    }
+    else {
+        for (let i = 0; i < this.state.offAvgNames.length; i++) {
+          if (this.state.offAvgNames[i] !== 'TOTAL G') {
+              validNames.push(this.state.offAvgNames[i])
+          }
+      }
+      this.setState({ validNames })
+    }
+    return validNames;
+  } 
   componentDidMount() {
     this.verifyUser();
     this.getOffStats();
@@ -338,11 +354,9 @@ class App extends Component {
           />
           <Route path='/build-model' render={() => {
             return <BuildModel 
-                      offAvgNames={this.state.offAvgNames}
-                      defAvgNames={this.state.defAvgNames}
                       getValidModelNames={this.getValidModelNames}
-                      validNames={this.state.validNames}
                       handleModelSubmit={this.handleModelSubmit}
+                      validNames={this.state.validNames}
                   />
             }}
           />

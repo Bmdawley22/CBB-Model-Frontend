@@ -1,12 +1,13 @@
 #build-model-wrapper {
     display: flex;
+    justify-content: space-evenly;
     margin-top: 20px;
     margin-left: 5vw;
 }
 #stat-list-wrapper {
     border: 5px solid black;
-    width: 20vw;
-    height: 60vh;
+    width: 25vw;
+    height: 70vh;
 }
 #stat-list-wrapper h3 {
     text-align: center;
@@ -17,7 +18,8 @@
 }
 ul {
     overflow: auto;
-    height: 50vh;
+    height: 60vh;
+    margin-top: 15px;
 }
 .available-stat {
     display: flex;
@@ -29,14 +31,27 @@ ul {
 #model-stats-component-wrapper {
     margin-left: 10vw;
     border: 1px black solid;
-    height: 60vh;
+    height: 70vh;
+    width: 33vw;
+    padding: 10px 0px;
+}
+#model-stats-component-wrapper h2 {
+    text-align: center;
 }
 #added-stat-wrapper {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-items: top;
+    align-items: center;
+    height: 50vh;
+    min-width: 20vw;
+    overflow-y: auto;
+    margin-top: 20px;
 }
 
 .added-stat {
-    margin-top: 0px;
+    margin-top: 10px;
 }
 form div h3 {
     text-align: center;

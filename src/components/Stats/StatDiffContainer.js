@@ -37,19 +37,11 @@ class StatDiffContainer extends Component {
         }
     }
     componentDidMount() {
-        if(this.props.offDiffNames.length < 2) {
-            this.setState({ offDiffNames: localStorage.offDiffNames})
-            this.setState({ defDiffNames: localStorage.defDiffNames})
-        }
-        else {
-            this.addSchoolToNames(this.props.offDiffNames, 'o')
-            this.addSchoolToNames(this.props.defDiffNames)
-        }
-        console.log(localStorage.offDiffNames)
+        this.addSchoolToNames(this.props.offDiffNames, 'o')
+        this.addSchoolToNames(this.props.defDiffNames)
     }
  
     render () {
-        console.log(this.state.offDiffNames)
         return (
             <div id='stat-container'>
                 <div id='buttons'>

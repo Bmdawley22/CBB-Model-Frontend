@@ -77,7 +77,7 @@ class App extends Component {
     else {
       if (currUserModels) {
         let modelTableNames = []
-        for (const [key, value] of Object.entries(currUserModels[0])) {
+        for (const [key] of Object.entries(currUserModels[0])) {
             if ( key !== 'id' && key !== 'user_id' && key !== 'createdAt' && key !== 'updatedAt') {
               modelTableNames.push(key)
             }
@@ -119,8 +119,6 @@ class App extends Component {
     
     let defStatAverages = this.getAverages(defStats);
     this.setState({ defStatAverages });
-
-    let maxMin = this.getMaxMin(defStats);
 
     let defDiffs = this.getDifferentials(defStats);
     this.setState({ defDiffs })
@@ -275,15 +273,14 @@ class App extends Component {
     this.setState({ validNames })
   }
   createModel = async (modelObj) => {
-    const createModel = await saveModel(modelObj);
+    await saveModel(modelObj);
   }
   handleModelSubmit = async (e, modelStatNames) => {
     e.preventDefault();
    
     const modelTableNames = await this.getCurrUserModels(0);
-    console.log(modelTableNames)
 
-    //gets entered in values
+    //gets model weights from user
     let modelValues = [];
     for (let i = 0; i < e.target.length - 1; i = i + 2) {
       modelValues.push(e.target[i].valueAsNumber);
@@ -304,6 +301,7 @@ class App extends Component {
       }
     }
     this.createModel(userModel)
+    this.props.history.push('/model')
   }
   componentDidMount() {
     this.verifyUser();

@@ -12,6 +12,7 @@ import LoginForm from './components/LoginForm';
 import BuildModel from './components/Build Model/BuildModel';
 import StatContainer from './components/Stats/StatContainer';
 import StatDiffContainer from './components/Stats/StatDiffContainer';
+import ModelsContainer from './components/Your Models/ModelsContainer';
 
 
 class App extends Component {
@@ -303,6 +304,7 @@ class App extends Component {
     this.createModel(userModel)
     this.props.history.push('/model')
   }
+
   componentDidMount() {
     this.verifyUser();
     this.getOffStats();
@@ -341,6 +343,14 @@ class App extends Component {
                       getValidModelNames={this.getValidModelNames}
                       validNames={this.state.validNames}
                       handleModelSubmit={this.handleModelSubmit}
+                  />
+            }}
+          />
+          <Route path='/model' render={() => {
+            return <ModelsContainer 
+                      user={this.state.currentUser}
+                      verifyUser={this.verifyUser}
+                      validNames={this.state.validNames}
                   />
             }}
           />

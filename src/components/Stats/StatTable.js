@@ -21,6 +21,7 @@ class StatTable extends Component {
         this.props.getSchoolNames();
     }
     render() {
+        
         return (
             <div>
                 <form>

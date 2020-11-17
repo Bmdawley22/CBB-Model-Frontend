@@ -36,13 +36,16 @@ class App extends Component {
       maxMin: [],
       defDiffs: [],
       schoolNames: [],
-      validNames: [],
+      modelTableNames: [],
       currentUser: false,
       currUserModels: {},
       selectedModelId: 0,
+      selectedModelVals: [],
       awayScore: null,
       homeScore: null,
-      modelIds: []
+      modelIds: [],
+      awayPtsAdded: [],
+      homePtsAdded: []
     }
   }
   handleSignup = async (e, newUserData) => {
@@ -91,6 +94,7 @@ class App extends Component {
               modelTableNames.push(key)
             }
         }
+        this.setState({ modelTableNames })
         return modelTableNames;
       }
     }
@@ -318,7 +322,9 @@ class App extends Component {
     this.createModel(userModel)
     this.props.history.push('/model')
   }
-  getValidModelNames = (offAvgNames) => {
+  getValidModelNames = () => {
+    let offAvgNames = this.state.offAvgNames;
+
     let validNames = [];
     if( offAvgNames ) {
         for (let i = 0; i < offAvgNames.length; i++) {
@@ -382,11 +388,9 @@ class App extends Component {
     }
   }
   score = async (away, home, awayArr, homeArr) => {
-    console.log( away, home, awayArr, homeArr )
-    console.log(this.state.currUserModels[this.state.selectedModelId])
+  
     const model = this.state.currUserModels[this.state.selectedModelId]
     const modelStatNames = await this.getCurrUserModels(0)
-    console.log(modelStatNames)
 
     let awayPtsAdded = [];
     let homePtsAdded = [];
@@ -409,9 +413,20 @@ class App extends Component {
       awayScore = awayScore + awayPtsAdded[i];
       homeScore = homeScore + homePtsAdded[i];
     }
-    awayScore = parseFloat(awayScore.toFixed(2)) + this.state.avgScore;
-    homeScore = parseFloat(homeScore.toFixed(2)) + this.state.avgScore;
-    this.setState({ awayScore, homeScore, modelIds})
+    awayScore = (parseFloat(awayScore.toFixed(2)) + this.state.avgScore).toFixed(2);
+    homeScore = (parseFloat(homeScore.toFixed(2)) + this.state.avgScore).toFixed(2);
+    this.setState({ awayScore, homeScore, modelIds, awayPtsAdded, homePtsAdded})
+    this.getCurrModelVals();
+  }
+  getCurrModelVals = () => {
+    let model = this.state.currUserModels[this.state.selectedModelId];
+    let selectedModelVals = []
+    for (const [key, value] of Object.entries(model)) {
+      if ( key !== 'id' && key !== 'user_id' && key !== 'createdAt' && key !== 'updatedAt') {
+        selectedModelVals.push(value)
+      }
+    }
+    this.setState({ selectedModelVals })
   }
   componentDidMount() {
     this.verifyUser();
@@ -456,9 +471,10 @@ class App extends Component {
             return <ModelsContainer 
                       user={this.state.currentUser}
                       verifyUser={this.verifyUser}
-                      validNames={this.state.validNames}
+                      offAvgNames={this.state.offAvgNames}
                       selectedModelId={this.state.selectedModelId}
                       getSelectedModel={this.getSelectedModel}
+                      
                   />
             }}
           />
@@ -494,6 +510,13 @@ class App extends Component {
                       schoolNames={this.state.schoolNames}
                       prepareDiffs={this.prepareDiffs}
                       selectedModelId={this.state.selectedModelId}
+                      awayScore={this.state.awayScore}
+                      homeScore={this.state.homeScore}
+                      modelIds={this.state.modelIds}
+                      statNames={this.state.offAvgNames}
+                      selectedModelVals={this.state.selectedModelVals}
+                      awayPtsAdded={this.state.awayPtsAdded}
+                      homePtsAdded={this.state.homePtsAdded}
                   />
             }}
           />

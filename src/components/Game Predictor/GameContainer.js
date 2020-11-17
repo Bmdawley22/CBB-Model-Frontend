@@ -10,7 +10,9 @@ class GameContainer extends Component {
             team1: '',
             team2: '',
             diffId1: null,
-            diffId2: null
+            diffId2: null,
+            actualAScore: '',
+            actualHScore: ''
         }
     }
     onInput = (e) => {
@@ -55,32 +57,77 @@ class GameContainer extends Component {
         }
         this.props.prepareDiffs(diffId1, diffId2)
     }
-   
     componentDidMount() {
-
     }
     render () {
         return (
             <div>
                 <h1>Game Predictor</h1>
-                <div id='away-input'>
-                    <h4>Away Team:</h4>
-                    <input 
-                        type='text'
-                        name='team1'
-                        value={this.state.team1}
-                        onChange={this.onInput}
-                    />
-                </div>
-                <div id='home-input'>
-                    <h4>Home Team:</h4>
-                    <input 
-                        type='text'
-                        name='team2'
-                        value={this.state.team2}
-                        onChange={this.onInput}
-                    />
-                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Game</th>
+                            <th>Enter Teams</th>
+                            <th>Enter Score</th>
+                            <th>Predicted Score</th>
+                            {this.props.statNames.map((name, id) => (
+                                this.props.modelIds.includes(id-1) &&
+                                    <th key={id}>{name}</th>
+                                
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Away Team</td>
+                            <td>
+                                <input 
+                                    type='text'
+                                    name='team1'
+                                    value={this.state.team1}
+                                    onChange={this.onInput}
+                                />
+                            </td>
+                            <td>
+                                <input 
+                                    type='text'
+                                    name='actualAscore'
+                                    value={this.state.actualAScore}
+                                    onChange={this.onInput}
+                                />
+                            </td>
+                            {this.props.awayScore && <td>{this.props.awayScore}</td> }
+                            {this.props.awayPtsAdded && this.props.awayPtsAdded.map((val, id) => (
+                                this.props.modelIds.includes(id) &&
+                                <td key={id}>{val}</td>
+                            ))}
+                        </tr>
+                        <tr>
+                            <td>Home Team</td>
+                            <td>
+                                <input 
+                                    type='text'
+                                    name='team2'
+                                    value={this.state.team2}
+                                    onChange={this.onInput}
+                                />
+                            </td>
+                            <td>
+                                <input 
+                                    type='text'
+                                    name='actualHscore'
+                                    value={this.state.actualHScore}
+                                    onChange={this.onInput}
+                                />
+                            </td>
+                            { this.props.homeScore && <td>{this.props.homeScore}</td> }
+                            {this.props.homePtsAdded && this.props.homePtsAdded.map((val, id) => (
+                                this.props.modelIds.includes(id) &&
+                                <td key={id}>{val}</td>
+                            ))}
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         )
     }

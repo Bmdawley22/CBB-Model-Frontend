@@ -1,3 +1,7 @@
+#away-data, #home-data{
+    display: flex;
+    justify-content: left;
+}
 #away-input, #home-input {
     display: flex;
     justify-content: space-between;

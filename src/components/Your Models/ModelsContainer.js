@@ -71,7 +71,7 @@ class ModelsContainer extends Component {
                         {this.state.selectedModelVals.map((value, id) => (
                             value !== 0 && 
                                 <div className='model-value' key={id}>
-                                    <h4>{this.props.validNames[id]}</h4>
+                                    <h4>{this.props.offAvgNames[id+1]}</h4>
                                     <p>{value}</p>
                                 </div>
                             

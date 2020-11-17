@@ -27,13 +27,12 @@ class StatDiffContainer extends Component {
             let offDiffNames = namesArr;
             offDiffNames.unshift('School')
             this.setState({ offDiffNames })
-            localStorage.offDiffNames = [offDiffNames];
         }
         else {
             let defDiffNames = namesArr;
             defDiffNames.unshift('School')
             this.setState({ defDiffNames })
-            localStorage.defDiffNames = [defDiffNames];
+
         }
     }
     componentDidMount() {

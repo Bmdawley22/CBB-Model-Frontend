@@ -123,6 +123,9 @@ class App extends Component {
     
     let defStatAverages = this.getAverages(defStats);
     this.setState({ defStatAverages });
+    
+    let maxMin = this.getMaxMin(defStats);
+    this.setState({ maxMin })
 
     let defDiffs = this.getDifferentials(defStats);
     this.setState({ defDiffs })
@@ -221,16 +224,16 @@ class App extends Component {
   }
   getDifferentials = (stats, offOrDef) => {
     let averages = []
-    let excludeNames = []
+
     if( offOrDef === 'o') {
-      averages = this.state.offStatAverages
-      //excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+      averages = this.state.offStatAverages;
     }
     else {
-      averages = this.state.defStatAverages
-      //excludeNames = ['id','createdAt','updatedAt', 'total_g', 'total_w', 'total_l','w_l_perc','srs','sos','conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+      averages = this.state.defStatAverages;
     }
-    excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+    const excludeNames = ['id','createdAt','updatedAt', 'conf_w', 'conf_l', 'home_w', 'home_l','away_w','away_l'];
+    const inverseDiffs = ['total_l','tov','pf','pts_all', 'fg_all', 'fga_all', 'fg_perc_all', 'three_pt_all', 'three_pta_all',
+                          'three_pt_perc_all', 'ft_all', 'fta_all', 'orb_all', 'trb_all','asst_all', 'stl_all','blk_all']
     let diffData = [];
     let temp = [];
     let diff = 0;
@@ -251,6 +254,11 @@ class App extends Component {
             }
             else if (key === 'sos') {
               diff = 100 * ((value - maxMin[3])/(maxMin[2] - maxMin[3])-0.5)
+              temp.push(`${diff.toFixed(1)}%`)
+              count++;
+            }
+            else if (inverseDiffs.includes(key)) {
+              diff = -1 * 100 * ((value - averages[count])/(averages[count]));
               temp.push(`${diff.toFixed(1)}%`)
               count++;
             }
@@ -336,12 +344,30 @@ class App extends Component {
       let homePtsArr = [];
 
       for (let i = 2; i < offDiffs1.length; i++) {
-        if (i < 6) {
-          let val1 = parseInt(offDiffs1[i].slice(0, -1));
-          let val2 = parseInt(offDiffs2[i].slice(0, -1));
-          console.log(typeof(val1))
-          awayPtsArr.push(val1-val2)
-          homePtsArr.push(val2 - val1)
+        if (i < 7 || i === 16) {
+          let val1 = parseFloat(offDiffs1[i].slice(0, -1));
+          let val2 = parseFloat(offDiffs2[i].slice(0, -1));
+          awayPtsArr.push(parseFloat((val1-val2).toFixed(1)));
+          homePtsArr.push(parseFloat((val2 - val1).toFixed(1)));
+        }
+        else if (i < 16) {
+          let val1 = parseFloat(offDiffs1[i].slice(0, -1));
+          let val2 = parseFloat(defDiffs2[i].slice(0, -1));
+          let val3 = parseFloat(offDiffs2[i].slice(0, -1));
+          let val4 = parseFloat(defDiffs1[i].slice(0, -1));
+          
+          awayPtsArr.push(parseFloat((val1-val2).toFixed(1)));
+          homePtsArr.push(parseFloat((val3 - val4).toFixed(1)));
+        }
+        else if ( i > 16 ) {
+          let val1 = parseFloat(offDiffs1[i].slice(0, -1));
+          let val2 = parseFloat(defDiffs2[i-1].slice(0, -1));
+          let val3 = parseFloat(offDiffs2[i].slice(0, -1));
+          let val4 = parseFloat(defDiffs1[i-1].slice(0, -1));
+          console.log(val1, val2)
+          console.log(val3, val4)
+          awayPtsArr.push(parseFloat((val1-val2).toFixed(1)));
+          homePtsArr.push(parseFloat((val3 - val4).toFixed(1)));
         }
       }
       console.log(awayPtsArr, homePtsArr)

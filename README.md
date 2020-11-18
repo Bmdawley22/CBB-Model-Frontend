@@ -40,6 +40,7 @@
 * Game History <br />
 ![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Game_History.png)
 
+
 ## ERD 
 
 ![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/ERD.png)
@@ -70,8 +71,7 @@
         2. Login
         3. Verify user
         4. Build a model
-        5. View all created models by user  
-            * select model to be used for the app
+        5. View all created models by user, selected model to be used for the app
         6. View all team stats
         7. View all team stat differentials
         8. Input team names for a matchup, predict score based on selected model

@@ -1,15 +1,18 @@
 #build-model-wrapper {
     display: flex;
     justify-content: space-evenly;
-    margin-top: 20px;
-    margin-left: 5vw;
+    margin: 0px auto;
+    margin-top: 25vh;
+    width: 100%;
 }
 #stat-list-wrapper {
     border: 5px solid black;
-    width: 25vw;
-    height: 70vh;
+    width: 30vw;
+    height: 60vh;
+    max-height: 60vh;
     background-color: #3D5A80;
     color: white;
+    border-radius: 5px;
 }
 #stat-list-wrapper h3 {
     text-align: center;
@@ -20,8 +23,10 @@
 }
 ul {
     overflow: auto;
-    height: 60vh;
+    max-height: 50vh;
+    margin: 0px auto;
     margin-top: 15px;
+    max-width: 20vw
 }
 .available-stat {
     display: flex;
@@ -32,32 +37,55 @@ ul {
 
 #model-stats-component-wrapper {
     margin-left: 10vw;
-    border: 1px black solid;
-    height: 70vh;
+    border: 5px black solid;
+    max-height: 70vh;
     width: 33vw;
-    padding: 10px 0px;
     background-color: #3D5A80;
+    border-radius: 5px;
     color: white;
 }
 #model-stats-component-wrapper h2 {
     text-align: center;
+    font-size: 30px;
+}
+#added-stat-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
 }
 #added-stat-wrapper {
     text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-items: top;
-    align-items: center;
-    height: 50vh;
-    min-width: 20vw;
     overflow-y: auto;
-    margin-top: 20px;
+    padding: 10px;
+    border: 2px solid #98C1D9;
+    margin-top: 10px;
+    max-height: 40vh;
+    width: 25vw;
 }
-
+#confirm {
+    font-size: 25px;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+#confirm:hover {
+    font-size: 30px;
+    color:white;
+}
 .added-stat {
     margin-top: 10px;
+}
+.remove {
+    margin-top: 8px;
+    font-size: 25px;
+    border-radius: 5px
+}
+.remove:hover {
+    font-size: 30px;
 }
 form div h3 {
     text-align: center;
     margin-top: 0px;
+}
+.model-input {
+    max-width: 15vw;
 }

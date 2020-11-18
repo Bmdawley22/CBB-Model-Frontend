@@ -50,7 +50,10 @@ class BuildModel extends Component {
             <div id='build-model-wrapper'>
                 <div id='stat-list-wrapper'>
                     <h3>Choose from Available Stats</h3>
-                    <StatList statNames={this.state.validNames} handleAdd={this.handleAdd} />
+                    <StatList   
+                        statNames={this.state.validNames} 
+                        handleAdd={this.handleAdd} 
+                    />
                 </div>
                 <ModelStats 
                     modelStatNames={this.state.modelStatNames}

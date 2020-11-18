@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 
+import '../css/Auth.css';
+
 class Profile extends Component {
     constructor(props) {
         super(props);
     }
     render () {
         return (
-            <div>
+            <div id='profile'>
                 <h1>Profile</h1>
                 <div>
                     <h3>Username: {this.props.currentUser.username}</h3>

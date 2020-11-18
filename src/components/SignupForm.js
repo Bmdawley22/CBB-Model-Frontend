@@ -24,27 +24,37 @@ class SignupForm extends Component {
                 className='auth-form' 
                 onSubmit={(e) => this.props.handleSignup(e, this.state)}
             >
-
-                Username: <input
-                    type="text"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.handleChange}
-                />
-                Email: <input
-                    type="text"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                />
-                Password:<input
-                    type="password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                />
-                <input type="submit" value="Signup!" />
-                <Link to="/">Home</Link>
+                <div className='input'>
+                    <p>Username:</p> 
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder='Enter Username'
+                        value={this.state.username}
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className='input'>
+                    <p>Email:</p> 
+                    <input
+                        type="text"
+                        name="email"
+                        placeholder='Enter Email'
+                        value={this.state.email}
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <div className='input'>
+                    <p>Password:</p> 
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder='Enter Password'
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                    />
+                </div>
+                <input id='signup' type="submit" value="Signup!" />
             </form>
         )
     }

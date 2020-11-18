@@ -1,20 +1,24 @@
-
 #stat-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: 20vh;
 }
 #buttons {
     display: flex;
     justify-content: space-evenly;
-    width: 100%;
-    margin-top: 20px;
+    width: 60%;
+    margin: 0 auto;
 }
 #buttons button {
-    font-size: 30px;
+    font-size: 25px;
     border: black 2px solid;
     border-radius: 5px;
     padding: 5px;
+}
+#buttons button:hover {
+    color: #98C1D9;
+    border: 1px solid #98C1D9;
 }
 #active {
     background-color: #3D5A80;
@@ -41,7 +45,6 @@ form h4 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 3vh;
 }
 .show-avg {
     margin: 0px 45vw;
@@ -53,7 +56,9 @@ h3 {
 #averages {
     display: flex;
     justify-content: left;
+    align-items: center;
     overflow-x: auto;
+    max-height: 90px;
     margin: 0px 10vw;
     border: 5px solid #3D5A80;
 }
@@ -63,15 +68,15 @@ h3 {
     min-width: 6vw;
 }
 .average h4 {
-    border-bottom: 1px black solid;
+    border-bottom: 1px #293241 solid;
 }
 .average h4, .average p {
-    font-size: 12px;
+    font-size: 15px;
     text-align: center;
 }
 #table-wrapper {
     overflow-x: auto;
-    width: 80vw;
+    width: 90vw;
     border: 10px solid #293241;
 }
 table {
@@ -81,29 +86,32 @@ table {
 #table-header {
     display: block;
     overflow-x: auto;
+    padding-bottom: 2px;
+    border-bottom: 3px solid black;
 }
 #table-header th {
     border: 1px black solid;
 }
 .school-header {
-    min-width: 9vw;
+    min-width: 11vw;
 }
 .table-headers {
     min-width: 6vw;
+    font-size: 18px;
 }
 tbody {
     display: block;
     overflow:auto;
     height:50vh;
     width:100%;
-    font-size: 10px;
+    font-size: 15px;
 }
 tr td {
     border: 1px black solid;
     text-align: center;
 }
 .school-cell {
-    min-width: 9vw;
+    min-width: 11vw;
 }
 .cells {
     min-width: 6vw;

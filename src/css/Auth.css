@@ -1,10 +1,46 @@
 .auth-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-top: 30vh;
+    margin: 0px auto;
+    margin-top: 20vh;
+    width: 60vw;
 }
 
-.auth-form input {
-    margin: 10px 0px;
+.input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0px; 
+}
+.input p {
+    text-align: center;
+    font-size: 25px;
+}
+.input input {
+    height: 25px;
+}
+
+#signup:hover, #login:hover {
+    color: #3D5A80;
+    border: #3D5A80 1px solid;
+}
+#profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0px auto;
+    margin-top: 28vh;
+    padding: 30px;
+    text-align: center;
+    height: 40vh;
+    width: 40vw;
+    background-color: #3D5A80;
+    color: white;
+    border-radius: 5px;
+}
+#profile div {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
 }

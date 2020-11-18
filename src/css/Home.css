@@ -1,4 +1,21 @@
 #home {
-    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0px auto;
+    margin-top: 40vh;
     text-align: center;
+    height: 40vh;
+    width: 80vw;
+    background-color: #3D5A80;
+    border-radius: 5px;
+    color: white;
+}
+.link {
+    color:white;
+}
+
+.link:hover {
+    color: #98C1D9;
 }

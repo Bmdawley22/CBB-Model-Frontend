@@ -7,7 +7,7 @@ const Home = () => {
         <div id='home'>
             <h1>Welcome to the NCAAM Model Generator</h1>
             <h3>
-                <Link to='/signup'>Signup</Link> or <Link to='login'>Login</Link> to get started building your own model and predict college basketball outcomes!
+                <Link className='link' to='/signup'>Signup</Link> or <Link className='link' to='login'>Login</Link> to get started building your own model and predict college basketball outcomes!
             </h3>
         </div>
     )

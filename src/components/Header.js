@@ -5,7 +5,7 @@ import '../css/Header.css';
 const Header = (props) => {
     return (
         <header>
-            <h1>NCAAM Model Generator</h1>
+            <Link id='title' to='/'><h1>NCAAM Model Generator</h1></Link>
             {props.currentUser ?
                 <nav id='model-nav'>
                     <Link 
@@ -25,12 +25,9 @@ const Header = (props) => {
                         id='profile-link' 
                         to='/profile'
                     >
-                        <div>
-                            <img src='../../images/bball.png' alt='basketball'/>
-                            <p>{props.currentUser.username}</p>
-                        </div>
+                            {props.currentUser.username}
                     </Link>
-                    <button onClick={props.handleLogout}>Logout</button>
+                    <button id='logout' onClick={props.handleLogout}>Logout</button>
                 </nav>
             :
                 <nav id='model-nav'>

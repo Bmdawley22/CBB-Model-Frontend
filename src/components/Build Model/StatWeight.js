@@ -17,8 +17,9 @@ class StatName extends Component {
         return (
             <div>
                 <h3>{this.props.statName}</h3>
-                <input className='model-input'
-                    type='number'
+                <input 
+                    className='model-input'
+                    type='float'
                     name='weight'
                     value={this.state.weight}
                     onChange={this.handleChange}

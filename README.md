@@ -116,6 +116,9 @@ Backend: https://github.com/Bmdawley22/CBB-Model-Backend
 ## Resources
 * Contributors:
     - Brady Dawley
+* Stats from:
+    - https://www.sports-reference.com/cbb/seasons/2020-school-stats.html
+    - https://www.sports-reference.com/cbb/seasons/2020-opponent-stats.html
 
 * Websites:
     - **ReactJS** https://reactjs.org

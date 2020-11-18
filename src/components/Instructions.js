@@ -31,7 +31,7 @@ const Instructions = () => {
                     </ul>
                 </li>
                 <li>
-                    <h3>Stat Differntials</h3>
+                    <h3>Stat Differentials</h3>
                     <ul>
                         <li>i. Same functionality as the "All Team Stats" page</li>
                         <li>ii. Stat Differntials are each teams percent above/below average for each stat</li>

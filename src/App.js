@@ -295,12 +295,11 @@ class App extends Component {
    
     const modelTableNames = await this.getCurrUserModels(0);
    
-    console.log(modelTableNames)
     //gets model weights from user
     let modelValues = [];
     for (let i = 1; i < e.target.length; i++) {
       if(e.target[i].className === 'model-input') {
-        modelValues.push(e.target[i].valueAsNumber);
+        modelValues.push(parseFloat(e.target[i].value));
       }
     }
     
@@ -322,7 +321,7 @@ class App extends Component {
       }
     }
     console.log(userModel)
-    //this.createModel(userModel)
+    this.createModel(userModel)
     this.props.history.push('/model')
   }
   getValidModelNames = () => {

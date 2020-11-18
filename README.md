@@ -21,23 +21,23 @@
 * Disclaimer 
 
 ## Wireframe
-* All Drinks: <br />
-![alt text](https://github.com/Bmdawley22/cbb-model-frontend/blob/main/Images/AllDrinks.png)
+* Signup: <br />
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/Signup.png)
 
 * See Images Folder: AllDrinks.png
 
 * All Show Drinks: <br />
-![alt text](https://github.com/Bmdawley22/drink-mixer/blob/main/Images/AllShowDrinks.png)
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/All_Team_Stats.png)
 
 * See Images Folder: AllShowDrinks.png
 
 * By Spirit: <br />
-![alt text](https://github.com/Bmdawley22/drink-mixer/blob/main/Images/BySpirit.png)
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/All_Team_Stats.png)
 
 * See Images Folder: BySpirit.png
 
 * Random Drink: <br />
-![alt text](https://github.com/Bmdawley22/drink-mixer/blob/main/Images/RandomDrink.png)
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/All_Team_Stats.png)
 
 * See Images Folder: RandomDrink.png
 

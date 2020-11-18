@@ -16,6 +16,7 @@ import StatContainer from './components/Stats/StatContainer';
 import StatDiffContainer from './components/Stats/StatDiffContainer';
 import ModelsContainer from './components/Your Models/ModelsContainer';
 import GameContainer from './components/Game Predictor/GameContainer';
+import Instructions from './components/Instructions';
 
 
 class App extends Component {
@@ -468,6 +469,10 @@ class App extends Component {
           />
           <Route path='/profile' render={() => {
             return <Profile currentUser={this.state.currentUser} />
+            }}
+          />
+          <Route path='/instructions' render={() => {
+            return <Instructions />
             }}
           />
           <Route path='/build-model' render={() => {

@@ -10,6 +10,12 @@ const Header = (props) => {
                 <nav id='model-nav'>
                     <Link 
                         className='model-link' 
+                        to='/instructions'
+                    >
+                        instructions
+                    </Link>
+                    <Link 
+                        className='model-link' 
                         to='/build-model'
                     >
                         Build Model

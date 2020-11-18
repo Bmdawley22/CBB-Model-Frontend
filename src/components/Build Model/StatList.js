@@ -2,7 +2,7 @@ import React from 'react'
 
 const StatList = (props) => {
     return (
-        <ul>
+        <ul id='stat-ul'>
             {props.statNames && props.statNames.map((statName, id) => (
                 <div key={id} className='available-stat'>
                     <li>{statName}</li>

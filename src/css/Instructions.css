@@ -1,0 +1,24 @@
+#instructions {
+    margin-top: 25vh;
+    width: 30vw;
+    margin: 0px auto;
+}
+#instructions h2 {
+    text-align: center;
+    font-size: 40px;
+}
+#instructions ul {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+#instructions ul li {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+#instructions ul li ul {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}

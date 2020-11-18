@@ -58,6 +58,37 @@
 * Display model results based on the game history
 * Ability to run regression on game history with model to optimize model weights
 
+## MVP Goals:
+
+* Bronze:
+    * Minimum Goals:
+        1. Signup
+        2. Login
+        3. Verify user
+        4. Build a model
+        5. View all created models by user  
+            * select model to be used for the app
+        6. View all team stats
+        7. View all team stat differentials
+        8. Input team names for a matchup, predict score based on selected model
+    * Styling: Plain background with correct formatting
+
+* Silver:
+    * Nice to Have:
+        1. App instructions page
+        2. Edit user info
+        3. Edit created user models
+        4. Add games to table in database
+    * Styling: Friendly UI for easy app navigation
+
+* Gold:
+    * High Goal:
+        1. View, update, remove game history table 
+        2. Show results on models page based on selected model and games added
+        3. Run regression on selected model to optimize weights based on games added 
+        4. User imports data for different dates
+    * Styling & Functionality: Remove bugs and good error handling
+
 ## Languages Used
 * HTML
 * CSS

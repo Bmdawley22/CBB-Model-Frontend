@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter} from 'react-router-dom';
 
+import './css/App.css'
+
 import Header from './components/Header';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
@@ -428,6 +430,15 @@ class App extends Component {
     }
     this.setState({ selectedModelVals })
   }
+  resetGameData = () => {
+    this.setState({ 
+      awayScore: null,
+      homeScore: null,
+      modelIds: [],
+      awayPtsAdded: [],
+      homePtsAdded: []
+    })  
+  }
   componentDidMount() {
     this.verifyUser();
     this.getOffStats();
@@ -436,7 +447,7 @@ class App extends Component {
   }
   render () {
     return (
-      <div>
+      <div id='app' >
         <Header 
           currentUser={this.state.currentUser}
           handleLogout={this.handleLogout}
@@ -517,6 +528,7 @@ class App extends Component {
                       selectedModelVals={this.state.selectedModelVals}
                       awayPtsAdded={this.state.awayPtsAdded}
                       homePtsAdded={this.state.homePtsAdded}
+                      resetGameData={this.resetGameData}
                   />
             }}
           />

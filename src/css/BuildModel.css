@@ -8,6 +8,8 @@
     border: 5px solid black;
     width: 25vw;
     height: 70vh;
+    background-color: #3D5A80;
+    color: white;
 }
 #stat-list-wrapper h3 {
     text-align: center;
@@ -34,6 +36,8 @@ ul {
     height: 70vh;
     width: 33vw;
     padding: 10px 0px;
+    background-color: #3D5A80;
+    color: white;
 }
 #model-stats-component-wrapper h2 {
     text-align: center;

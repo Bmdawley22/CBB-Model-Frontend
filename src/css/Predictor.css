@@ -1,16 +1,70 @@
-#away-data, #home-data{
+#container-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    width: 90vw;
+    margin: 0px auto;
+    overflow-x: auto;
+}
+#input-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 40vw;
+    margin: 0px auto;
+}
+h1 {
+    font-size: 40px;
+    text-align: center;
+}
+
+#header, #away-body, #home-body {
     display: flex;
     justify-content: left;
-}
-#away-input, #home-input {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    width: 20vw;
+    margin-bottom: 0px;
+    font-size: 30px;
 }
-#away-input h4, #home-input h4 {
-    width: 30%;
+#header {
+    border-bottom: 2px solid #3D5A80;
 }
-#away-input input, #home-input input {
-    width: 60%;
+#away-body h4, #home-body h4, input {
+    font-size: 30px;
+}
+.input {
+    width: 50%;
+    text-align: center;
+}
+input {
+    background-color: #98C1D9;
+    color: black;
+    padding: 5px;
+    text-align: center;
+}
+.header, .data {
+    text-align: center;
+    font-size: 20px;
+}
+.game {
+    min-width: 15%;
+    font-size: 20px;
+}
+.teams {
+    min-width: 15%;
+}
+.score {
+    min-width: 150px;
+    width: 12%
+}
+.model {
+    min-width: 7%;
+}
+.pred-score {
+    min-width: 200px;
+}
+.score-header {
+    margin-left: 20px;
+}
+.pred-score-header {
+    margin-left: 12px;
 }

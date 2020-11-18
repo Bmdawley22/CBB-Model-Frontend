@@ -17,9 +17,9 @@
     padding: 5px;
 }
 #active {
-    background-color: blue;
+    background-color: #3D5A80;
     color: white;
-    border: black 2px solid;
+    border: #293241 2px solid;
     border-radius: 5px;
 }
 #stat-container div h2 {
@@ -55,11 +55,11 @@ h3 {
     justify-content: left;
     overflow-x: auto;
     margin: 0px 10vw;
-    border: 5px solid blue;
+    border: 5px solid #3D5A80;
 }
 .average {
     padding: 0px 8px;
-    border: 2px black solid;
+    border: 2px #98C1D9 solid;
     min-width: 6vw;
 }
 .average h4 {
@@ -72,7 +72,7 @@ h3 {
 #table-wrapper {
     overflow-x: auto;
     width: 80vw;
-    border: 10px solid black;
+    border: 10px solid #293241;
 }
 table {
     overflow-x: auto;

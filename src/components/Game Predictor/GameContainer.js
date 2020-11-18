@@ -20,7 +20,9 @@ class GameContainer extends Component {
         this.setState({
           [name]: value
         })
-        this.getTeamNames(name, value)
+        if (name === 'team1' || name === 'team2') {
+            this.getTeamNames(name, value)    
+        }
     }
     getTeamNames = (team1or2, value) => {
         let schoolNames = this.props.schoolNames;
@@ -57,77 +59,77 @@ class GameContainer extends Component {
         }
         this.props.prepareDiffs(diffId1, diffId2)
     }
-    componentDidMount() {
+    componentWillUnmount () {
+        this.props.resetGameData();
     }
     render () {
         return (
-            <div>
+            <div id={this.props.awayPtsAdded.length > 0 ? 'container-wrapper' : 'input-wrapper'}>
                 <h1>Game Predictor</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Game</th>
-                            <th>Enter Teams</th>
-                            <th>Enter Score</th>
-                            <th>Predicted Score</th>
-                            {this.props.statNames.map((name, id) => (
-                                this.props.modelIds.includes(id-1) &&
-                                    <th key={id}>{name}</th>
-                                
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Away Team</td>
-                            <td>
-                                <input 
-                                    type='text'
-                                    name='team1'
-                                    value={this.state.team1}
-                                    onChange={this.onInput}
-                                />
-                            </td>
-                            <td>
-                                <input 
-                                    type='text'
-                                    name='actualAscore'
-                                    value={this.state.actualAScore}
-                                    onChange={this.onInput}
-                                />
-                            </td>
-                            {this.props.awayScore && <td>{this.props.awayScore}</td> }
-                            {this.props.awayPtsAdded && this.props.awayPtsAdded.map((val, id) => (
-                                this.props.modelIds.includes(id) &&
-                                <td key={id}>{val}</td>
-                            ))}
-                        </tr>
-                        <tr>
-                            <td>Home Team</td>
-                            <td>
-                                <input 
-                                    type='text'
-                                    name='team2'
-                                    value={this.state.team2}
-                                    onChange={this.onInput}
-                                />
-                            </td>
-                            <td>
-                                <input 
-                                    type='text'
-                                    name='actualHscore'
-                                    value={this.state.actualHScore}
-                                    onChange={this.onInput}
-                                />
-                            </td>
-                            { this.props.homeScore && <td>{this.props.homeScore}</td> }
-                            {this.props.homePtsAdded && this.props.homePtsAdded.map((val, id) => (
-                                this.props.modelIds.includes(id) &&
-                                <td key={id}>{val}</td>
-                            ))}
-                        </tr>
-                    </tbody>
-                </table>
+                <div id='header'>
+                    <p  className={this.props.awayPtsAdded.length > 0 ? 'header game' : 'input'}>Game</p>
+                    <p  className={this.props.awayPtsAdded.length > 0 ? 'header teams' : 'input teams'}>Enter Teams</p>
+                    {this.props.awayScore && <p  className='header score score-header'>Game Score</p> }
+                    {this.props.awayScore && <p className='header pred-score pred-score-header'>Predicted Score</p> }
+                    {this.props.statNames.map((name, id) => (
+                        this.props.modelIds.includes(id-1) &&
+                            <p className='header model' key={id}>{name}</p>
+                    ))}
+                </div>
+                <div id='away-body'>
+                    <p className={this.props.awayPtsAdded.length > 0 ? 'data game' : 'input'}>Away Team</p>
+                    <input 
+                        className={this.props.awayPtsAdded.length > 0 ? 'data teams' : 'input'}
+                        type='text'
+                        name='team1'
+                        placeholder='Enter Away Team'
+                        value={this.state.team1}
+                        onChange={this.onInput}
+                    />
+                    {this.props.awayScore && 
+                        <input 
+                            className={this.props.awayPtsAdded.length > 0 ? 'data score' : 'input'}
+                            type='text'
+                            name='actualAScore'
+                            placeholder='Enter Away Score'
+                            value={this.state.actualAScore}
+                            onChange={this.onInput}
+                        />
+                    }
+                    {this.props.awayScore &&  <p className='data pred-score'>{this.props.awayScore}</p> }
+                    {this.props.awayPtsAdded && this.props.awayPtsAdded.map((val, id) => (
+                        this.props.modelIds.includes(id) &&
+                        <p key={id} className='data model'>{val}</p>
+                    ))}
+                </div>
+                <div id='home-body'>
+                    <p className={this.props.awayPtsAdded.length > 0 ? 'data game' : 'input'}>Home Team</p>
+                    <input 
+                        className={this.props.awayPtsAdded.length > 0 ? 'data teams' : 'input'}
+                        type='text'
+                        name='team2'
+                        placeholder='Enter Home Team'
+                        value={this.state.team2}
+                        onChange={this.onInput}
+                    />
+                    {this.props.awayScore && 
+                        <input
+                            className={this.props.awayPtsAdded.length > 0 ? 'data score' : 'input'}
+                            type='text'
+                            name='actualHScore'
+                            placeholder='Home Score'
+                            value={this.state.actualHScore}
+                            onChange={this.onInput}
+                        />
+                    }
+                    {this.props.homeScore && <p className='data pred-score'>{this.props.homeScore}</p> }
+                    {this.props.homePtsAdded && this.props.homePtsAdded.map((val, id) => (
+                        this.props.modelIds.includes(id) &&
+                        <p key={id} className='data model'>{val}</p>
+                    ))}
+                </div>
+                
+             
             </div>
         )
     }

@@ -1,5 +1,6 @@
+
 header {
-  background: blue;
+  background: #98C1D9;
   position: absolute;
   top: 0px;
   height: 12vh;
@@ -14,7 +15,6 @@ h1 {
 }
 
 #model-nav {
-  background-color: gray;
   display: flex;
   justify-content: space-evenly;
   align-items: center;
@@ -22,7 +22,7 @@ h1 {
   height: 100%;
 }
 .model-link {
-  color: white;
+  color: black;
 }
 
 #profile-link:hover {
@@ -30,3 +30,10 @@ h1 {
   padding:3px;
 }
 
+/*
+  orange: #EE6C4D
+  blackish: #293241
+  dark blue: #3D5A80
+  light blue: #98C1D9
+  lightest blue: #E0FBFC
+*/

@@ -22,7 +22,7 @@
 
 ## Wireframe
 * Signup: <br />
-![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/Signup.png)
+![alt text]("/images/Signup.png")
 
 * See Images Folder: AllDrinks.png
 

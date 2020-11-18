@@ -24,21 +24,26 @@
 * Signup: <br />
 ![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Signup.png)
 
+* Login <br />
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Login.png)
 
-* All Show Drinks: <br />
-![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/All_Team_Stats.png)
+* All Team Stats <br />
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/All_Team_stats.png)
 
+* All Team Differentials <br />
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/Stat_Differentials.png)
 
-* By Spirit: <br />
-![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/All_Team_Stats.png)
+* Build Model <br />
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Build_Model.png)
 
+* Model Results <br />
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Model_Results.png)
 
-* Random Drink: <br />
-![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/All_Team_Stats.png)
+* Predictor <br />
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Predictor.png)
 
-
-* Spirit Show Drink: <br />
-![alt text](https://github.com/Bmdawley22/drink-mixer/blob/main/Images/SpirtShowDrink.png)
+* Game History <br />
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Game_History.png)
 
 
 ## App

@@ -10,10 +10,12 @@ Users will be able to make as many models as they want and use them to copare re
 * Wireframe
 * ERD
 * App
-* Features
+* User Stories
 * Future Additions
+* Minimum Viable Product
 * Packages/Libraries
-* Contributors
+* Source Code
+* Resources
 
 
 ## Wireframe
@@ -50,13 +52,13 @@ Users will be able to make as many models as they want and use them to copare re
 
 - **App:** https://cbb-model.surge.sh
 
-## Features
-* Create an account and login
-* View team stats from database and search for teams
-* View how each teams stats compare to the average for that stat
-* Build your own model by selecting what you think are the most important stats
-* View all of your models by selecting the model
-* Based on selected model, input team names to be able to predict game score
+## User Stories
+* As a use I want to be able to, create an account and login
+* As a use I want to be able to, view team stats from database and search for teams
+* As a use I want to be able to, view how each teams stats compare to the average for that stat
+* As a use I want to be able to, build your own model by selecting what you think are the most important stats
+* As a use I want to be able to, view all of your models by selecting the model
+* As a use I want to be able to, based on selected model, input team names to be able to predict game score
 
 ## Future Additions
 * Edit created models in the database
@@ -107,8 +109,7 @@ Users will be able to make as many models as they want and use them to copare re
 * Postgres
 * Sequelize
 
-## Contribute
-- **Source Code:** 
+## Source Code
 Frontend: https://github.com/Bmdawley22/CBB-Model-Frontend
 Backend: https://github.com/Bmdawley22/CBB-Model-Backend
 

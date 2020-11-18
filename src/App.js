@@ -295,7 +295,7 @@ class App extends Component {
    
     const modelTableNames = await this.getCurrUserModels(0);
    
-    
+    console.log(modelTableNames)
     //gets model weights from user
     let modelValues = [];
     for (let i = 1; i < e.target.length; i++) {
@@ -321,7 +321,8 @@ class App extends Component {
         userModel[`${modelTableNames[i]}`] = 0;
       }
     }
-    this.createModel(userModel)
+    console.log(userModel)
+    //this.createModel(userModel)
     this.props.history.push('/model')
   }
   getValidModelNames = () => {

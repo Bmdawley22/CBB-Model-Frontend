@@ -1,70 +1,180 @@
-# Getting Started with Create React App
+# Final Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## College Basketball Model
 
-## Available Scripts
+## Description: 
+* Create an app for a user to build their own statistical models to predict college basketball games' outcomes!
 
-In the project directory, you can run:
+## Table of Contents
+* Wireframe
+* Flow Diagram
+* App
+* Features
+* Future Additions
+* API Used
+* Languages Used
+* Packages/Libraries
+* Contribute
+* Issue and Resolutions
+* Submit a Ticket
+* Resources
+* Disclaimer 
 
-### `npm start`
+## Wireframe
+* All Drinks: <br />
+![alt text](https://github.com/Bmdawley22/cbb-model-frontend/blob/main/Images/AllDrinks.png)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* See Images Folder: AllDrinks.png
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+* All Show Drinks: <br />
+![alt text](https://github.com/Bmdawley22/drink-mixer/blob/main/Images/AllShowDrinks.png)
 
-### `npm test`
+* See Images Folder: AllShowDrinks.png
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* By Spirit: <br />
+![alt text](https://github.com/Bmdawley22/drink-mixer/blob/main/Images/BySpirit.png)
 
-### `npm run build`
+* See Images Folder: BySpirit.png
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+* Random Drink: <br />
+![alt text](https://github.com/Bmdawley22/drink-mixer/blob/main/Images/RandomDrink.png)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* See Images Folder: RandomDrink.png
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+* Spirit Show Drink: <br />
+![alt text](https://github.com/Bmdawley22/drink-mixer/blob/main/Images/SpirtShowDrink.png)
 
-### `npm run eject`
+* See Images Folder: SpiritShowDrink.png
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Flow Diagram
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![alt text](https://github.com/Bmdawley22/drink-mixer/blob/main/Images/FlowDiagram.png)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* See Images Folder: FlowDiagram.png
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## App
 
-## Learn More
+- **App:** drink-mixer.surge.sh
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Features
+* Enter App only if 21 and Older
+* Top Spotlight Drink, Tavern, and Article
+* Random Drink Generator
+* Add Drinks to a Drink List
+* Find a drink by spirit
+* View a Drink List of all drinks
+* View directions on how to make a drink
+* Add a new Drink
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Future Additions
+* User Login, Sign Up, and Sign Out of App
+* Create a database to store all drinks
+* Add likes and comments to drinks
 
-### Code Splitting
+## API Used
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **TheCocktailDB:** https://www.thecocktaildb.com/api.php
 
-### Analyzing the Bundle Size
+## Languages Used
+* HTML
+* CSS
+* JavaScript
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Packages/Libraries
+* React
+* React Router
+* React Router Dom
+* Axios
+* Google-Map-React
+* @iconify/react
+* @iconify/icons-mdi
 
-### Making a Progressive Web App
+## Contribute
+- **Source Code:** https://github.com/Bmdawley22/drink-mixer
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Issue and Resolutions
+### Issue
+* Displaying Data to ingredients and measurements on a drink
+    * API stored each ingredient and measurement as a different name
+    * Example: <br />
+![alt text](https://github.com/Bmdawley22/drink-mixer/blob/main/Images/IngredientsAPI.png)
 
-### Advanced Configuration
+* See Images Folder: IngredientsAPI.png
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Resolution
+* Create a for loop to map over in the render
+    * Result: Able to create match naming conventions to return the data from the API
+    * Cause: adding a for loop at the begining on the page render then map over that array in order to only return results that had a value and not null. This works for both ingredients and measurements
+    * Code Used: 
+    ```
+        let ingredients = [];
+        for (let i = 1; i < 16; i++) {
+            const temp = `strIngredient${i}`;
+            ingredients.push(props.randomDrink[temp]);
+        }
 
-### Deployment
+        {ingredients.map((ingredient, id) => {
+            return (
+                <div key={id}>
+                    {ingredient ? <li >{ingredient}</li> : null}
+                </div>
+            )
+        })}
+    ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Issue
+* Firebase database to store information
+    * Using Firebase database to store all drinks in order to save drinks that are added each time
 
-### `npm run build` fails to minify
+### Resolution
+* Imported firebase and used .ref to store to data base
+    * Result: data was saving to the database; however, having difficulites rendering that data to be used throughout the app
+    * Cause: adding .ref to store directly to the database, not able to return data from the database
+    * Code Used:
+    ```
+        import firebase from 'firebase';
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+        const drinks = firebase.database();
+        const drink = drinks.ref('drinks');
+        for (let i = 0; i < this.state.drinks.length; i++) {
+            drink.push({ ...this.state.drinks[i]});
+        }
+    ```
+    * **Issue Ticket Submission:** https://git.generalassemb.ly/jd-seir-4/project-3/issues/3
+
+    * **Firebase:** https://console.firebase.google.com/project/drink-mixer-app/overview 
+
+## Submit a Ticket
+* If a problem occurs with the Drink Mixer or have suggestions for updates, please add them here: 
+https://github.com/Bmdawley22/drink-mixer/issues
+
+- **Notes:** Responses can take up to 48 hours. Thank you for mixing!
+
+## Resources
+* Contributors:
+    - Andrea Bonetto
+    - Brady Dawley
+    - Tim Kaiser
+* API:
+    - https://www.thecocktaildb.com/api.php
+* Websites:
+    - **ReactJS** https://reactjs.org
+    - **w3schools** https://www.w3schools.com/
+    - **MDN web docs** https://developer.mozilla.org/en-US/
+    - **stackoverflow** https://stackoverflow.com/
+    - **GeeksforGeeks** https://www.geeksforgeeks.org
+    - **GitHub Docs** https://docs.github.com/en
+    - **Google Fonts** https://fonts.google.com/
+    - **CSS-TRICKS** https://css-tricks.com/
+    - **Firebase** https://css-tricks.com/intro-firebase-react/
+    - **Google Maps React** https://tomchentw.github.io/react-google-maps/
+* Instructors: 
+    - Casey R Harding
+    - David Magbee
+    - Isha Arora
+    - Leah Mattern
+* SEI Classmates
+
+## Disclaimer
+
+**PLEASE DRINK RESPONSIBLY**

@@ -29,7 +29,7 @@ Users will be able to make as many models as they want and use them to copare re
 ![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/All_Team_Stats.png)
 
 * All Team Differentials <br />
-![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/Stat_Differential.png)
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Stat_Differential.png)
 
 * Build Model <br />
 ![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Build_Model.png)

@@ -28,10 +28,10 @@
 ![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Login.png)
 
 * All Team Stats <br />
-![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/All_Team_stats.png)
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/All_Team_Stats.png)
 
 * All Team Differentials <br />
-![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/Stat_Differentials.png)
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/tree/main/images/Stat_Differential.png)
 
 * Build Model <br />
 ![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Build_Model.png)
@@ -48,7 +48,7 @@
 
 ## App
 
-- **App:** drink-mixer.surge.sh
+- **App:** https://cbb-model.surge.sh
 
 
 ## Future Additions

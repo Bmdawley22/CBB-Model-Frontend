@@ -7,18 +7,12 @@
 
 ## Table of Contents
 * Wireframe
-* Flow Diagram
 * App
 * Features
 * Future Additions
-* API Used
-* Languages Used
 * Packages/Libraries
-* Contribute
-* Issue and Resolutions
-* Submit a Ticket
-* Resources
-* Disclaimer 
+* Contributors
+
 
 ## Wireframe
 * Signup: <br />
@@ -50,10 +44,19 @@
 
 - **App:** https://cbb-model.surge.sh
 
+## Features
+* Create an account and login
+* View team stats from database and search for teams
+* View how each teams stats compare to the average for that stat
+* Build your own model by selecting what you think are the most important stats
+* View all of your models by selecting the model
+* Based on selected model, input team names to be able to predict game score
 
 ## Future Additions
-
-
+* Edit created models in the database
+* Add games to a "game history" table in my database
+* Display model results based on the game history
+* Ability to run regression on game history with model to optimize model weights
 
 ## Languages Used
 * HTML
@@ -64,10 +67,9 @@
 * React
 * React Router
 * React Router Dom
-* Axios
-* Google-Map-React
-* @iconify/react
-* @iconify/icons-mdi
+* Express
+* Postgres
+* Sequelize
 
 ## Contribute
 - **Source Code:** 
@@ -87,5 +89,3 @@ Backend: https://github.com/Bmdawley22/CBB-Model-Backend
     - **GitHub Docs** https://docs.github.com/en
     - **Google Fonts** https://fonts.google.com/
     - **CSS-TRICKS** https://css-tricks.com/
-    - **Firebase** https://css-tricks.com/intro-firebase-react/
-    - **Google Maps React** https://tomchentw.github.io/react-google-maps/

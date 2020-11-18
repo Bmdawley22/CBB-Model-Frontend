@@ -12,7 +12,7 @@ const Header = (props) => {
                         className='model-link' 
                         to='/instructions'
                     >
-                        instructions
+                        Instructions
                     </Link>
                     <Link 
                         className='model-link' 

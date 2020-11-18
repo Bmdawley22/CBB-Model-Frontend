@@ -22,7 +22,7 @@ class LoginForm extends Component {
                 className='auth-form' 
                 onSubmit={(e) => this.props.handleLogin(e, this.state)}
             >
-                <div className='input'>
+                <div className='auth-input'>
                     <p>Username:</p> 
                     <input
                         type="text"
@@ -32,7 +32,7 @@ class LoginForm extends Component {
                         onChange={this.handleChange}
                     />
                 </div>
-                <div className='input'>
+                <div className='auth-input'>
                     <p>Password:</p> 
                     <input
                         type="password"

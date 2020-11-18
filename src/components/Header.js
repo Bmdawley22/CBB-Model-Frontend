@@ -31,7 +31,7 @@ const Header = (props) => {
                 </nav>
             :
                 <nav id='model-nav'>
-                    <Link to='/home' className='nav-link'>Home</Link>
+                    <Link to='/' className='nav-link'>Home</Link>
                     <Link to='/signup' className='nav-link'>Signup</Link>
                     <Link to='/login' className='nav-link'>Login</Link>   
                 </nav>

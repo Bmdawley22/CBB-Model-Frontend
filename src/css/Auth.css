@@ -3,20 +3,21 @@
     flex-direction: column;
     margin: 0px auto;
     margin-top: 20vh;
-    width: 60vw;
+    width: 20vw;
 }
 
-.input {
+.auth-input {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 10px 0px; 
+    width: 100%;
 }
-.input p {
+.auth-input p {
     text-align: center;
     font-size: 25px;
 }
-.input input {
+.auth-input input {
     height: 25px;
 }
 

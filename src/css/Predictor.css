@@ -19,7 +19,6 @@ h1 {
     font-size: 40px;
     text-align: center;
 }
-
 #header, #away-body, #home-body {
     display: flex;
     justify-content: left;
@@ -29,13 +28,13 @@ h1 {
 }
 #header {
     border-bottom: 2px solid #3D5A80;
+    width: 100%;
 }
-#away-body h4, #home-body h4, input {
-    font-size: 30px;
-}
+
 .input {
-    width: 50%;
+    width: 100%;
     text-align: center;
+    font-size: 30px;
 }
 input {
     background-color: #98C1D9;

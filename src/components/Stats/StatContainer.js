@@ -26,7 +26,7 @@ class StatContainer extends Component {
                     <button 
                         onClick={this.changeToOffense}
                         id={this.state.statsToShow === 'offense' && 'active' }
-                    >Offense Stats</button>
+                    >Offensive Stats</button>
                     <button 
                         onClick={this.changeToDefense}
                         id={this.state.statsToShow === 'defense' && 'active' }

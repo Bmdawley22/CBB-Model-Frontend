@@ -24,7 +24,7 @@ class SignupForm extends Component {
                 className='auth-form' 
                 onSubmit={(e) => this.props.handleSignup(e, this.state)}
             >
-                <div className='input'>
+                <div className='auth-input'>
                     <p>Username:</p> 
                     <input
                         type="text"
@@ -34,7 +34,7 @@ class SignupForm extends Component {
                         onChange={this.handleChange}
                     />
                 </div>
-                <div className='input'>
+                <div className='auth-input'>
                     <p>Email:</p> 
                     <input
                         type="text"
@@ -44,7 +44,7 @@ class SignupForm extends Component {
                         onChange={this.handleChange}
                     />
                 </div>
-                <div className='input'>
+                <div className='auth-input'>
                     <p>Password:</p> 
                     <input
                         type="password"

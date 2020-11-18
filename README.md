@@ -7,6 +7,7 @@
 
 ## Table of Contents
 * Wireframe
+* ERD
 * App
 * Features
 * Future Additions
@@ -39,6 +40,9 @@
 * Game History <br />
 ![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/Game_History.png)
 
+## ERD 
+
+![alt text](https://github.com/Bmdawley22/CBB-Model-Frontend/blob/main/images/ERD.png)
 
 ## App
 

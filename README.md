@@ -3,7 +3,8 @@
 ## College Basketball Model
 
 ## Description: 
-* Create an app for a user to build their own statistical models to predict college basketball games' outcomes!
+* Create an app for a user to build their own statistical models to predict college basketball games' outcomes!  
+Users will be able to make as many models as they want and use them to copare results for completed or future games
 
 ## Table of Contents
 * Wireframe
